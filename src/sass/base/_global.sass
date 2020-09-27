@@ -1,0 +1,80 @@
+// Global
+*,
+*:before,
+*:after
+  box-sizing: border-box
+
+html
+  scroll-behavior: smooth
+  -ms-overflow-style: scrollbar
+
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+ul,
+ol,
+li,
+figure,
+figcaption,
+blockquote,
+dl,
+dd
+  margin: 0
+
+body
+  font-family: 'Roboto', sans-serif
+  font-size: $base_size * 1px
+  font-weight: $fw_regular
+  color: $primary_text_clr
+  min-height: 100vh
+  min-width: 320px
+  scroll-behavior: smooth
+  text-align: left
+  text-rendering: optimizeSpeed
+  overflow-x: hidden
+  overflow-y: scroll
+  background-color: $primary_bg_clr
+
+main,
+figure
+  display: block
+
+a:not([class])
+  text-decoration-skip-ink: auto
+
+a
+  text-decoration: none
+  &:focus,
+  &:active
+    outline: none
+
+ul,
+ol
+  padding: 0
+  list-style: none
+
+picture
+  height: auto
+  width: 100%
+
+img
+  display: block
+  height: auto
+  max-width: 100%
+  margin: auto
+
+input,
+button,
+textarea,
+select
+  font: inherit
+
+@media (prefers-reduced-motion: reduce)
+  *
+    animation-duration: 0.01ms !important
+    animation-iteration-count: 1 !important
+    transition-duration: 0.01ms !important
+    scroll-behavior: auto !important

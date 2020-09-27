@@ -1,0 +1,14 @@
+{
+  "env": {
+    "es6": true,
+    "node": true,
+    "jquery": true,
+    "browser": true
+  },
+  "extends": ["airbnb/base"],
+  "rules": {
+    "max-len": ["error", 120],
+    "linebreak-style": 0,
+    "max-classes-per-file": ["error", 5]
+  }
+}

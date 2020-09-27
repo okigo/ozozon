@@ -1,0 +1,19 @@
+//- Images
+mixin image(islazy, name, alt, className)
+  - className = className || ''
+  picture(class = className)
+    if islazy
+      source(data-srcset='./img/' + name + '.webp' srcset='./img/low/' + name + '.webp' type='image/webp')
+      source(data-srcset='./img/' + name + '.png' srcset='./img/low/' + name + '.png' type='image/png')
+      source(data-srcset='./img/' + name + '.jpg' srcset='./img/low/' + name + '.jpg' type='image/jpg')
+      img(data-src='./img/' + name + '.png' src='./img/low/' + name + '.png' alt = alt class = 'lazyload ' + className)
+    else
+      source(srcset='./img/' + name + '.webp' type='image/webp')
+      source(srcset='./img/' + name + '.png' type='image/png')
+      source(srcset='./img/' + name + '.jpg' type='image/jpg')
+      img(src='./img/' + name + '.png' alt = alt class = className)
+
+//- SVG ico
+mixin svg-sprite-ico(name)
+  svg(class='ico_' + name)
+    use(href='#' + name xlink:href='#' + name)

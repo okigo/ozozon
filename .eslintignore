@@ -1,0 +1,8 @@
+node-modules
+docs
+src/resources
+gulpfile.js
+helpers.js
+lazysizes.js
+.vscode
+.git
