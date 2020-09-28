@@ -10,14 +10,24 @@
 
 header.header
   .navbar
-    .navbar__left
+
+    .navbar__logo
       a.logo(href="./") ozozon
-    .navbar__center
+
+    .navbar__nav
       nav.nav
         ul.nav__menu
           each item, index in menu
             li.nav__item
               a.nav__link(href=item.link) #{item.name}
-    .navbar__right
-      a.phone(href="tel:+74958453444") +7 (495) 845-34-44
-      button.button.button__empty.button__empty_white Войти
+        .nav__phone
+          a.phone(href="tel:+74958453444") +7 (495) 845-34-44
+        .nav__login
+          button.button.button__simple.button__simple_white Войти
+
+    .navbar__button
+      .button-nav
+        i.button-nav__icon
+        //- .button-nav__line(data-button-nav-line-up)
+        //- .button-nav__line(data-button-nav-line-center)
+        //- .button-nav__line(data-button-nav-line-down)

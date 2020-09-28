@@ -16,10 +16,29 @@
   &:focus
     outline: 0
 
-  &__empty
+  &__simple
     background: none
     padding: 10px 45px
 
     &_white
       color: $primary_clr
       border: 2px solid $primary_clr
+
+// Button-navbar
+.button-nav
+  @include flex($ds: flex, $dr: row, $a: center, $j: center)
+  position: relative
+  width: 38px
+  height: 38px
+  border-radius: 5px
+  background: none
+  user-select: none
+  cursor: pointer
+  transition: background-color 0.45s ease
+  &:focus
+    outline: 0
+  &:hover
+    background-color: rgba(0, 0, 0, 0.1)
+  &__icon
+    display: block
+    @include sprite($ico_burger)

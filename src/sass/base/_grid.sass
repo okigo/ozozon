@@ -15,6 +15,7 @@
     max-width: 960px
   @include media_min($break_min_xl)
     max-width: 1050px
+
   &__secondary
     @include media_min($break_min_xl)
       max-width: 1080px
@@ -25,3 +26,7 @@
   flex-wrap: wrap
   margin-right: -15px
   margin-left: -15px
+
+.container-del
+  @include media_min($break_min_DEL)
+    max-width: 540px
