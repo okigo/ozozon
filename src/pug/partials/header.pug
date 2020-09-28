@@ -1,3 +1,23 @@
+-
+  var menu = [
+    {name: 'Про уборки', link: '#!'},
+    {name: 'Оформить заказ', link: '#!'},
+    {name: 'О нас', link: '#!'},
+    {name: 'Отзывы', link: '#!'},
+    {name: 'F.A.Q.', link: '#!'},
+    {name: 'Акции', link: '#!'}
+  ]
+
 header.header
-  .container
-    .row
+  .navbar
+    .navbar__left
+      a.logo(href="./") ozozon
+    .navbar__center
+      nav.nav
+        ul.nav__menu
+          each item, index in menu
+            li.nav__item
+              a.nav__link(href=item.link) #{item.name}
+    .navbar__right
+      a.phone(href="tel:+74958453444") +7 (495) 845-34-44
+      button.button.button__empty.button__empty_white Войти

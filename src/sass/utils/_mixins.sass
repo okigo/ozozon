@@ -35,12 +35,12 @@
     line-height: $lh / $fs
 
 // Flex
-@mixin flex($display: false, $direction: false, $align: false, $justify: false)
-  @if $display
-    display: $display
-  @if $direction
-    flex-direction: $direction
-  @if $align
-    align-items: $align
-  @if $justify
-    justify-content: $justify
+@mixin flex($ds: null, $dr: null, $a: null, $j: null, $w: null, $b: null, $g: null, $s: null)
+  display: $ds
+  flex-direction: $dr
+  align-items: $a
+  justify-content: $j
+  flex-wrap: $w
+  flex-basis: $b
+  flex-grow: $g
+  flex-shrink: $s

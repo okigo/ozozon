@@ -1,0 +1,25 @@
+// Button
+.button
+  display: block
+  font-family: 'Roboto', sans-serif
+  font-size: 1.4rem
+  font-weight: $fw_regular
+  line-height: 1
+  white-space: nowrap
+  user-select: none
+  border: 1px solid transparent
+  border-radius: 35px
+  cursor: pointer
+  max-width: 100%
+  transition: all 0.2s ease-in-out
+
+  &:focus
+    outline: 0
+
+  &__empty
+    background: none
+    padding: 10px 45px
+
+    &_white
+      color: $primary_clr
+      border: 2px solid $primary_clr

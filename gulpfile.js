@@ -125,7 +125,6 @@ gulp.task('styles', function() {
     .pipe(autoprefixer())
     .pipe(gulpif(isDev,
       combine(
-        beautify.css({ indent_size: 2 }),
         sourcemaps.write(),
         gulp.dest(paths.dstCSS)
       ),
