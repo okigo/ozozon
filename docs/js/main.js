@@ -42,7 +42,7 @@ var Navbar = /*#__PURE__*/ function() {
     value: function setConfig() {
       this.isVisibleNav = false;
       this.isAnimation = false;
-      this.scrollWidth = window.innerWidth - this.body.clientWidth;
+      this.scrollWidth = window.innerWidth - document.documentElement.clientWidth;
     }
   }, {
     key: "setListeners",
@@ -60,7 +60,7 @@ var Navbar = /*#__PURE__*/ function() {
     key: "setResizeProperties",
     value: function setResizeProperties() {
       if (this.isVisibleNav) return;
-      this.scrollWidth = window.innerWidth - this.body.clientWidth;
+      this.scrollWidth = window.innerWidth - document.documentElement.clientWidth;
     }
   }, {
     key: "toggleNavState",

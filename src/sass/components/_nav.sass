@@ -32,11 +32,9 @@
 .nav-in
 
   & .nav
-    position: relative
     @include flex($ds: flex, $dr: column, $a: center, $j: space-around)
     height: 100%
     min-height: 496px
-    z-index: 100
 
   & .nav__menu
     @include flex($ds: flex, $dr: column, $a: center, $j: space-between)
@@ -51,6 +49,7 @@
       margin-left: 0
 
   & .nav__link
+    font-family: Intro, sans-serif
     font-weight: $fw_bold
     text-transform: uppercase
 
@@ -59,7 +58,10 @@
     order: 1
 
     & > .phone
+      font-family: Intro, sans-serif
+      font-size: 1.6rem
       color: $primary_nav_clr
+      text-decoration: underline
 
   & .nav__login
     margin: 0

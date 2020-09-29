@@ -15,15 +15,17 @@ header.header
       a.logo(href="./") ozozon
 
     .navbar__nav
-      nav.nav
-        ul.nav__menu
-          each item, index in menu
-            li.nav__item
-              a.nav__link(href=item.link) #{item.name}
-        .nav__phone
-          a.phone(href="tel:+74958453444") +7 (495) 845-34-44
-        .nav__login
-          button.button.button__simple.button__simple_white Войти
+      .navbar__nav-wrap
+        .navbar__nav-wrap.navbar__nav-wrap_overflow
+          nav.nav
+            ul.nav__menu
+              each item, index in menu
+                li.nav__item
+                  a.nav__link(href=item.link) #{item.name}
+            .nav__phone
+              a.phone(href="tel:+74958453444") +7 (495) 845-34-44
+            .nav__login
+              button.button.button__simple.button__simple_white Войти
 
     .navbar__button
       .button-nav

@@ -3,6 +3,7 @@
   position: fixed
   @include flex($ds: flex, $dr: row, $a: center)
   width: 100%
+  min-width: 320px
   top: 0
   padding: 17px 15px
   @include media_min($break_min_sm)
@@ -15,7 +16,6 @@
 .navbar__logo
   width: auto
   padding: 0
-  z-index: 200
   @include media_min($break_min_xl)
     width: 100%
     max-width: 190px
@@ -30,21 +30,19 @@
 .navbar__button
   display: block
   margin-left: auto
-  z-index: 200
   @include media_min($break_min_xl)
     display: none
 
 .navbar__nav
-  position: relative
   width: 100%
 
-  &:before
-    display: none
-    height: 72px
-    @include media_min($break_min_sm)
-      height: 92px
-    @include media_min($break_min_md)
-      height: 112px
+.navbar__nav-wrap
+  height: 100%
+  overflow: hidden
+
+  &_overflow
+    overflow-y: auto
+    box-shadow: none
 
 .nav-in
 
@@ -54,6 +52,7 @@
 
   & .navbar__logo
     padding: 0
+    z-index: 200
     & > .logo
       color: $primary_clr
       transition: color .25s ease-in
@@ -62,6 +61,7 @@
 
   & .navbar__button
     display: block
+    z-index: 200
 
   & .navbar__nav
     position: fixed
@@ -69,31 +69,21 @@
     left: 0
     right: 0
     bottom: 0
-    background-color: $primary_accent_clr
+    background-color: rgba($primary_accent_clr, .9)
     padding-top: 72px
-    z-index: 100
     overflow-y: auto
-    animation: navIn 0.45s cubic-bezier(0.860, 0.000, 0.070, 1.000)
+    animation: navIn .35s ease-in-out
     animation-fill-mode: forwards
+    z-index: 100
     @include media_min($break_min_sm)
       padding-top: 92px
     @include media_min($break_min_md)
       padding-top: 112px
 
-    &:before
-      content: ""
-      display: block
-      position: fixed
-      width: 100%
-      top: 0
-      background-color: $primary_accent_clr
-      box-shadow: 0px 10px 13px -7px $primary_accent_clr
-      z-index: 200
-
 .nav-out
 
   & .navbar__nav
-    animation: navOut 0.45s cubic-bezier(0.860, 0.000, 0.070, 1.000)
+    animation: navOut .35s ease-in-out
     animation-fill-mode: forwards
 
 @keyframes navIn

@@ -16,7 +16,7 @@ class Navbar {
   setConfig() {
     this.isVisibleNav = false;
     this.isAnimation = false;
-    this.scrollWidth = window.innerWidth - this.body.clientWidth;
+    this.scrollWidth = window.innerWidth - document.documentElement.clientWidth;
   }
 
   setListeners() {
@@ -28,7 +28,7 @@ class Navbar {
   setResizeProperties() {
     if (this.isVisibleNav) return;
 
-    this.scrollWidth = window.innerWidth - this.body.clientWidth;
+    this.scrollWidth = window.innerWidth - document.documentElement.clientWidth;
   }
 
   toggleNavState() {
