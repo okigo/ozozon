@@ -29,19 +29,38 @@
 .nav__login
   margin-left: 38px
 
-.active
+.nav-in
 
   & .nav
-    @include flex($ds: flex, $dr: column, $a: center)
+    position: relative
+    @include flex($ds: flex, $dr: column, $a: center, $j: space-around)
+    height: 100%
+    min-height: 496px
+    z-index: 100
 
   & .nav__menu
-    @include flex($ds: flex, $dr: column)
+    @include flex($ds: flex, $dr: column, $a: center, $j: space-between)
+    height: 70%
+    min-height: 182px
+    order: 2
 
   & .nav__item
     text-align: center
+
     &:not(:first-of-type)
       margin-left: 0
-      margin-top: 25px
+
+  & .nav__link
+    font-weight: $fw_bold
+    text-transform: uppercase
 
   & .nav__phone
     margin: 0
+    order: 1
+
+    & > .phone
+      color: $primary_nav_clr
+
+  & .nav__login
+    margin: 0
+    order: 3

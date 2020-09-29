@@ -41,20 +41,33 @@ var Navbar = /*#__PURE__*/ function() {
     key: "setConfig",
     value: function setConfig() {
       this.isVisibleNav = false;
+      this.isAnimation = false;
+      this.scrollWidth = window.innerWidth - this.body.clientWidth;
     }
   }, {
     key: "setListeners",
     value: function setListeners() {
       var _this = this;
 
+      window.addEventListener('resize', function() {
+        _this.setResizeProperties();
+      });
       this.buttonNav.addEventListener('click', function() {
         _this.toggleNavState();
       });
     }
   }, {
+    key: "setResizeProperties",
+    value: function setResizeProperties() {
+      if (this.isVisibleNav) return;
+      this.scrollWidth = window.innerWidth - this.body.clientWidth;
+    }
+  }, {
     key: "toggleNavState",
     value: function toggleNavState() {
       var _this2 = this;
+
+      if (this.isAnimation) return;
 
       if (!this.isVisibleNav) {
         this.isVisibleNav = true;
@@ -63,8 +76,49 @@ var Navbar = /*#__PURE__*/ function() {
       }
 
       requestAnimationFrame(function() {
-        _this2.body.classList.toggle('active');
+        _this2.toggleNav();
       });
+    }
+  }, {
+    key: "toggleNav",
+    value: function toggleNav() {
+      var _this3 = this;
+
+      var handler = function handler(e) {
+        if (e.animationName === 'navOut') {
+          _this3.body.classList.remove('nav-in');
+
+          _this3.body.classList.remove('nav-out');
+
+          _this3.scrollWidthCompensate(false);
+        }
+
+        _this3.navbar.removeEventListener('animationend', handler);
+
+        _this3.isAnimation = false;
+      };
+
+      this.navbar.addEventListener('animationend', handler);
+      this.isAnimation = true;
+
+      if (this.isVisibleNav) {
+        this.body.classList.add('nav-in');
+        this.scrollWidthCompensate(true);
+      } else {
+        this.body.classList.add('nav-out');
+      }
+    }
+  }, {
+    key: "scrollWidthCompensate",
+    value: function scrollWidthCompensate(isCompensate) {
+      if (isCompensate) {
+        var navbarPaddingRight = parseInt(getComputedStyle(this.navbar).paddingRight, 10);
+        this.body.style.paddingRight = "".concat(this.scrollWidth, "px");
+        this.navbar.style.paddingRight = "".concat(this.scrollWidth + navbarPaddingRight, "px");
+      } else {
+        this.body.style.cssText = '';
+        this.navbar.style.cssText = '';
+      }
     }
   }]);
 

@@ -6,8 +6,10 @@
   top: 0
   padding: 17px 15px
   @include media_min($break_min_sm)
-    padding: 27px 36px
+    padding: 27px 15px
   @include media_min($break_min_md)
+    padding: 37px 15px
+  @include media_min($break_min_xl)
     padding: 37px 36px
 
 .navbar__logo
@@ -36,7 +38,30 @@
   position: relative
   width: 100%
 
-.active
+  &:before
+    display: none
+    height: 72px
+    @include media_min($break_min_sm)
+      height: 92px
+    @include media_min($break_min_md)
+      height: 112px
+
+.nav-in
+
+  & .navbar
+    padding-left: 15px
+    padding-right: 15px
+
+  & .navbar__logo
+    padding: 0
+    & > .logo
+      color: $primary_clr
+      transition: color .25s ease-in
+      &:first-letter
+        color: $primary_clr
+
+  & .navbar__button
+    display: block
 
   & .navbar__nav
     position: fixed
@@ -44,13 +69,41 @@
     left: 0
     right: 0
     bottom: 0
-    background-color: $x-nobel-clr
+    background-color: $primary_accent_clr
     padding-top: 72px
     z-index: 100
+    overflow-y: auto
+    animation: navIn 0.45s cubic-bezier(0.860, 0.000, 0.070, 1.000)
+    animation-fill-mode: forwards
     @include media_min($break_min_sm)
       padding-top: 92px
     @include media_min($break_min_md)
       padding-top: 112px
 
-  & .navbar__button
-    display: block
+    &:before
+      content: ""
+      display: block
+      position: fixed
+      width: 100%
+      top: 0
+      background-color: $primary_accent_clr
+      box-shadow: 0px 10px 13px -7px $primary_accent_clr
+      z-index: 200
+
+.nav-out
+
+  & .navbar__nav
+    animation: navOut 0.45s cubic-bezier(0.860, 0.000, 0.070, 1.000)
+    animation-fill-mode: forwards
+
+@keyframes navIn
+  0%
+    transform: translateX(100%)
+  100%
+    transform: translateX(0%)
+
+@keyframes navOut
+  0%
+    transform: translateX(0%)
+  100%
+    transform: translateX(100%)
