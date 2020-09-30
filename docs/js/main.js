@@ -123,13 +123,40 @@ var Navbar = /*#__PURE__*/ function() {
   }]);
 
   return Navbar;
-}();
+}(); // -- Select -- //
+
+
+var Select = function Select(selects) {
+  _classCallCheck(this, Select);
+
+  this.selectsArr = [];
+
+  for (var i = 0; i < selects.length; i += 1) {
+    var button = selects[i].querySelector('.select__button');
+    var selectTarget = button.dataset.selectTarget;
+    var target = document.getElementById(selectTarget);
+    this.selectsArr.push({
+      index: i,
+      select: selects[i],
+      button: button,
+      buttonText: selects[i].querySelector('.select__button-text'),
+      selectTarget: selectTarget,
+      target: target,
+      list: selects[i].querySelector('.select__list'),
+      items: selects[i].querySelectorAll('.select__item')
+    });
+  }
+};
 
 window.onload = function() {
   var navbarObj;
+  var selectObg;
   var navbar = document.querySelector('.navbar');
+  var selects = document.querySelectorAll('[data-select]');
   if (navbar) navbarObj = new Navbar(navbar);
+  if (selects) selectObg = new Select(selects);
   return {
-    navbarObj: navbarObj
+    navbarObj: navbarObj,
+    selectObg: selectObg
   };
 };

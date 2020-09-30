@@ -36,3 +36,37 @@ header.header
       .button-call
         i.ico.button-call__ico
     .container.header__container
+      .row.header__row
+        .header__welcome
+          h1.title.title__primary Уборка квартир в Москве и Подмосковье
+          p.header__text Идеальный порядок каждую неделю
+          p.header__price от 1590 руб
+
+          .header__form
+            form.main-form(id="main-form" action="" method="post" name="main-form")
+
+              .main-form__group
+                label.main-form__label(for="cleaning") Тип уборки
+                input(type="hidden" id="cleaning" name="cleaning")
+
+                div.select(data-select)
+                  button.select__button(data-select-target="cleaning")
+                    span.select__button-text Поддерживающая
+                    i.ico.select__button-ico
+                  ul.select__list
+                    li.select__item Поддерживающая
+                    li.select__item Генеральная
+
+
+                //- select.main-form__select(id="cleaning" name="cleaning")
+                //-   option(value="supportive") Поддерживающая
+                //-   option(value="general") Генеральная
+
+              //- .main-form__group
+              //-   label.main-form__label(for="rooms") Количество комнат
+              //-   select.main-form__select(id="rooms" name="rooms")
+              //-     option(value="1") 1-комнатная
+              //-     option(value="2") 2-комнатная
+
+              .main-form__button
+                input(type="submit" value="Оформить заявку")

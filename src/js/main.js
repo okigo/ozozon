@@ -80,12 +80,39 @@ class Navbar {
   }
 }
 
+// -- Select -- //
+class Select {
+  constructor(selects) {
+    this.selectsArr = [];
+
+    for (let i = 0; i < selects.length; i += 1) {
+      const button = selects[i].querySelector('.select__button');
+      const { selectTarget } = button.dataset;
+      const target = document.getElementById(selectTarget);
+
+      this.selectsArr.push({
+        index: i,
+        select: selects[i],
+        button,
+        buttonText: selects[i].querySelector('.select__button-text'),
+        selectTarget,
+        target,
+        list: selects[i].querySelector('.select__list'),
+        items: selects[i].querySelectorAll('.select__item'),
+      });
+    }
+  }
+}
+
 window.onload = () => {
   let navbarObj;
+  let selectObg;
 
   const navbar = document.querySelector('.navbar');
+  const selects = document.querySelectorAll('[data-select]');
 
   if (navbar) navbarObj = new Navbar(navbar);
+  if (selects) selectObg = new Select(selects);
 
-  return { navbarObj };
+  return { navbarObj, selectObg };
 };

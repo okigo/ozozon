@@ -1,0 +1,24 @@
+// Main-form
+.main-form
+  @include flex($ds: flex, $dr: row, $a: center, $j: flex-start, $w: wrap, $b: 100%)
+  font-family: 'Roboto', sans-serif
+  padding: 20px 28px
+  background-color: $primary_bg_clr
+  border-radius: 10px
+  max-width: 810px
+
+.main-form__group
+  @include flex($ds: flex, $dr: column, $a: flex-start, $b: 236px)
+
+  & ~ *:not(:first-child)
+    margin-left: 29px
+
+.main-form__button
+  align-self: flex-end
+
+.main-form__label
+  font-family: inherit
+  font-size: 1.5rem
+  font-weight: $fw_thin
+  line-height: 2.4
+  color: $quaternary_text_clr
