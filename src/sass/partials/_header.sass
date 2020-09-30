@@ -9,16 +9,21 @@
   background-size: cover
   @include media-min($break_min_xxl)
     background-position: center center
-  &:before
-    content: ""
-    position: absolute
-    display: block
-    left: 0
-    right: 0
-    top: 0
-    bottom: 0
-    background: rgba(0, 0, 0, .35)
-    transition: background .5s
-  &:hover
-    &:before
-      background: rgba(0, 0, 0, .2)
+
+.header__desc
+  padding-top: 72px
+  @include media_min($break_min_sm)
+    padding-top: 92px
+  @include media_min($break_min_md)
+    padding-top: 112px
+
+.header__call
+  display: block
+  width: 100%
+  padding: 4px 15px
+  text-align: right
+  @include media-min($break_min_xl)
+    padding: 4px 52px
+
+.header__container
+

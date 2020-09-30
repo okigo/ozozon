@@ -11,7 +11,7 @@
   border-radius: 35px
   cursor: pointer
   max-width: 100%
-  transition: all 0.2s ease-in-out
+  transition: all .2s ease-in-out
 
   &:focus
     outline: 0
@@ -34,11 +34,37 @@
   background: none
   user-select: none
   cursor: pointer
-  transition: background-color 0.45s ease
+  transition: background-color .45s ease
+
   &:focus
     outline: 0
+
   &:hover
-    background-color: rgba(0, 0, 0, 0.1)
-  &__icon
-    display: block
+    background-color: rgba($secondary_clr, .1)
+
+  &__ico
     @include sprite($ico_burger)
+
+// Button-call
+.button-call
+  @include flex($ds: inline-flex, $dr: row, $a: center, $j: center)
+  width: 70px
+  height: 70px
+  border-radius: 50%
+  background-color: $primary_accentLight_clr
+  border: 1px solid transparent
+  transition: all .2s ease-in-out
+
+  &:focus
+    outline: 0
+
+  &:hover
+    border-color: $primary_accentLight_clr
+    box-shadow: 0 0 0 .2em rgba($primary_accentLight_clr, .5)
+
+  &:active
+    background-color: rgba($primary_accentLight_clr, .9)
+    box-shadow: 0 0 0 .2em rgba($primary_accentLight_clr, .3)
+
+  &__ico
+    @include sprite($ico_phone)
