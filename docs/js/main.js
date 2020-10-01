@@ -126,27 +126,117 @@ var Navbar = /*#__PURE__*/ function() {
 }(); // -- Select -- //
 
 
-var Select = function Select(selects) {
-  _classCallCheck(this, Select);
+var Select = /*#__PURE__*/ function() {
+  function Select(selects) {
+    _classCallCheck(this, Select);
 
-  this.selectsArr = [];
+    this.selectsArr = [];
 
-  for (var i = 0; i < selects.length; i += 1) {
-    var button = selects[i].querySelector('.select__button');
-    var selectTarget = button.dataset.selectTarget;
-    var target = document.getElementById(selectTarget);
-    this.selectsArr.push({
-      index: i,
-      select: selects[i],
-      button: button,
-      buttonText: selects[i].querySelector('.select__button-text'),
-      selectTarget: selectTarget,
-      target: target,
-      list: selects[i].querySelector('.select__list'),
-      items: selects[i].querySelectorAll('.select__item')
+    for (var i = 0; i < selects.length; i += 1) {
+      var button = selects[i].querySelector('.select__button');
+      var selectTarget = button.dataset.selectTarget;
+      var target = document.getElementById(selectTarget);
+      this.selectsArr.push({
+        index: i,
+        select: selects[i],
+        button: button,
+        buttonText: selects[i].querySelector('.select__button-text'),
+        selectTarget: selectTarget,
+        target: target,
+        items: selects[i].querySelectorAll('.select__item')
+      });
+    }
+
+    this.setListeners();
+    this.init();
+  }
+
+  _createClass(Select, [{
+    key: "init",
+    value: function init() {
+      for (var i = 0; i < this.selectsArr.length; i += 1) {
+        var _this$selectsArr$i = this.selectsArr[i],
+          index = _this$selectsArr$i.index,
+          items = _this$selectsArr$i.items;
+
+        for (var c = 0; c < items.length; c += 1) {
+          if (items[c].classList.contains('select__item_active')) {
+            this.toggleItem(index, items[c]);
+          }
+        }
+      }
+    }
+  }, {
+    key: "setListeners",
+    value: function setListeners() {
+      var _this4 = this;
+
+      var _loop = function _loop(i) {
+        var _this4$selectsArr$i = _this4.selectsArr[i],
+          index = _this4$selectsArr$i.index,
+          button = _this4$selectsArr$i.button,
+          items = _this4$selectsArr$i.items;
+        button.addEventListener('click', function(e) {
+          e.preventDefault();
+          requestAnimationFrame(function() {
+            _this4.toggleSelect(index);
+          });
+        });
+
+        for (var c = 0; c < items.length; c += 1) {
+          items[c].addEventListener('click', function(e) {
+            e.preventDefault();
+            requestAnimationFrame(function() {
+              _this4.toggleItem(index, e.target);
+
+              _this4.toggleSelect(index);
+            });
+          });
+        }
+      };
+
+      for (var i = 0; i < this.selectsArr.length; i += 1) {
+        _loop(i);
+      }
+    }
+  }, {
+    key: "toggleSelect",
+    value: function toggleSelect(index) {
+      var select = this.selectsArr[index].select;
+      select.classList.toggle('select_active');
+    }
+  }, {
+    key: "toggleItem",
+    value: function toggleItem(index, activeItem) {
+      var _this$selectsArr$inde = this.selectsArr[index],
+        items = _this$selectsArr$inde.items,
+        buttonText = _this$selectsArr$inde.buttonText,
+        target = _this$selectsArr$inde.target;
+      buttonText.textContent = activeItem.textContent;
+      if (target) target.value = activeItem.textContent;
+
+      for (var i = 0; i < items.length; i += 1) {
+        if (items[i] === activeItem) {
+          items[i].classList.add('select__item_active');
+        } else {
+          items[i].classList.remove('select__item_active');
+        }
+      }
+    }
+  }]);
+
+  return Select;
+}();
+
+function disableSubmitAction() {
+  var buttons = document.querySelectorAll('*[type=submit]');
+
+  for (var i = 0; i < buttons.length; i += 1) {
+    buttons[i].addEventListener('click', function(e) {
+      e.preventDefault();
     });
   }
-};
+}
 
 window.onload = function() {
   var navbarObj;
@@ -155,6 +245,7 @@ window.onload = function() {
   var selects = document.querySelectorAll('[data-select]');
   if (navbar) navbarObj = new Navbar(navbar);
   if (selects) selectObg = new Select(selects);
+  disableSubmitAction();
   return {
     navbarObj: navbarObj,
     selectObg: selectObg

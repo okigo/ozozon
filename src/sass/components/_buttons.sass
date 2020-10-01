@@ -24,6 +24,18 @@
       color: $primary_clr
       border: 2px solid $primary_clr
 
+      &:hover
+        color: $quaternary_text_clr
+        box-shadow: 0 0 0 .2em rgba($primary_clr, .5)
+        background-color: rgba($primary_clr, .9)
+
+      &:active
+        color: $quaternary_text_clr
+        background-color: rgba($primary_clr, .9)
+        box-shadow: 0 0 0 .2em rgba($primary_clr, .3)
+
+  &__primary
+
 // Button-navbar
 .button-nav
   @include flex($ds: flex, $dr: row, $a: center, $j: center)

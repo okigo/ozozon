@@ -4,7 +4,6 @@
   display: block
   width: 100%
   height: 100%
-  overflow: hidden
 
 .select__button
   position: relative
@@ -19,6 +18,7 @@
   user-select: none
   white-space: nowrap
   outline: 0
+  transition: background-color .3s ease
   z-index: 200
 
 .select__button-text
@@ -27,9 +27,13 @@
   font-weight: $fw_light
   line-height: 2.5
   color: $secondary_text_clr
+  transition: color .3s ease
 
 .select__button-ico
   @include sprite($ico_arrow-down)
+  transform: rotate(0deg)
+  transform-origin: center
+  transition: transform .3s ease-out
 
 .select__list
   position: absolute
@@ -40,14 +44,12 @@
   text-align: left
   border: 1px solid $primary_border_clr
   border-radius: 4px
-  box-shadow: 0px 0px 10px -5px rgba($secondary_clr, 0)
-  transition: transform .5s ease-out, box-shadow .25s ease
-  transform: translateY(-100%)
+  box-shadow: 0px 0px 10px -5px rgba($secondary_clr, .75)
+  will-change: transform, opacity
+  transition: transform .3s cubic-bezier(1.000, 0.000, 0.000, 1.000), opacity .3s ease-in
+  transform: translateY(50%) rotateX(90deg) rotateZ(45deg) scale(.5)
+  opacity: 0
   z-index: 100
-
-  &_active
-    transform: translateY(0%)
-    box-shadow: 0px 0px 10px -5px rgba($secondary_clr, .75)
 
 .select__item
   font-family: inherit
@@ -60,12 +62,27 @@
   user-select: none
   border-bottom: 1px solid rgba($primary_border_clr, 0)
   background-color: $primary_bg_clr
-  transition: color .3s ease, background-color .3s ease
+  transition: color .25s ease, background-color .25s ease
 
-  &:nth-child(2n)
+  &:nth-child(n + 2)
     border-top: 1px solid $primary_border_clr
 
-  &:hover
+  &:hover,
+  &_active
     color: $secondary_text_clr
     background-color: $secondary_bg_clr
 
+.select_active
+
+  & .select__button
+    background-color: $secondary_bg_clr
+
+  & .select__button-text
+    color: $quaternary_text_clr
+
+  & .select__button-ico
+    transform: rotate(180deg)
+
+  & .select__list
+    transform: translateY(0%) rotateX(0deg) rotateZ(0deg) scale(1)
+    opacity: 1

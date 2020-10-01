@@ -6,6 +6,7 @@
   min-width: 320px
   top: 0
   padding: 17px 15px
+  z-index: 1000
   @include media_min($break_min_sm)
     padding: 27px 15px
   @include media_min($break_min_md)
@@ -38,11 +39,6 @@
 
 .navbar__nav-wrap
   height: 100%
-  overflow: hidden
-
-  &_overflow
-    overflow-y: auto
-    box-shadow: none
 
 .nav-in
 
@@ -79,6 +75,13 @@
       padding-top: 92px
     @include media_min($break_min_md)
       padding-top: 112px
+
+  & .navbar__nav-wrap
+      overflow: hidden
+
+      &_overflow
+        overflow-y: auto
+        box-shadow: none
 
 .nav-out
 

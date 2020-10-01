@@ -8,6 +8,12 @@
     {name: 'Акции', link: '#!'}
   ]
 
+-
+  var items = {
+      cleaning: ['Поддерживающая', 'Генеральная'],
+      rooms: ['Студия', '1-комнатная', '2-комнатная', '3-комнатная', '4-комнатная'],
+  }
+
 header.header
   .navbar
 
@@ -32,9 +38,11 @@ header.header
         i.ico.button-nav__ico
 
   .header__desc
+
     .header__call
       .button-call
         i.ico.button-call__ico
+
     .container.header__container
       .row.header__row
         .header__welcome
@@ -48,25 +56,12 @@ header.header
               .main-form__group
                 label.main-form__label(for="cleaning") Тип уборки
                 input(type="hidden" id="cleaning" name="cleaning")
+                +select("cleaning", items.cleaning, 0)
 
-                div.select(data-select)
-                  button.select__button(data-select-target="cleaning")
-                    span.select__button-text Поддерживающая
-                    i.ico.select__button-ico
-                  ul.select__list
-                    li.select__item Поддерживающая
-                    li.select__item Генеральная
-
-
-                //- select.main-form__select(id="cleaning" name="cleaning")
-                //-   option(value="supportive") Поддерживающая
-                //-   option(value="general") Генеральная
-
-              //- .main-form__group
-              //-   label.main-form__label(for="rooms") Количество комнат
-              //-   select.main-form__select(id="rooms" name="rooms")
-              //-     option(value="1") 1-комнатная
-              //-     option(value="2") 2-комнатная
+              .main-form__group
+                label.main-form__label(for="rooms") Количество комнат
+                input(type="hidden" id="rooms" name="rooms")
+                +select("rooms", items.rooms, 1)
 
               .main-form__button
-                input(type="submit" value="Оформить заявку")
+                input.button.button__primary(type="submit" value="Оформить заявку")

@@ -97,10 +97,75 @@ class Select {
         buttonText: selects[i].querySelector('.select__button-text'),
         selectTarget,
         target,
-        list: selects[i].querySelector('.select__list'),
         items: selects[i].querySelectorAll('.select__item'),
       });
     }
+
+    this.setListeners();
+    this.init();
+  }
+
+  init() {
+    for (let i = 0; i < this.selectsArr.length; i += 1) {
+      const { index, items } = this.selectsArr[i];
+
+      for (let c = 0; c < items.length; c += 1) {
+        if (items[c].classList.contains('select__item_active')) {
+          this.toggleItem(index, items[c]);
+        }
+      }
+    }
+  }
+
+  setListeners() {
+    for (let i = 0; i < this.selectsArr.length; i += 1) {
+      const { index, button, items } = this.selectsArr[i];
+
+      button.addEventListener('click', (e) => {
+        e.preventDefault();
+        requestAnimationFrame(() => {
+          this.toggleSelect(index);
+        });
+      });
+
+      for (let c = 0; c < items.length; c += 1) {
+        items[c].addEventListener('click', (e) => {
+          e.preventDefault();
+          requestAnimationFrame(() => {
+            this.toggleItem(index, e.target);
+            this.toggleSelect(index);
+          });
+        });
+      }
+    }
+  }
+
+  toggleSelect(index) {
+    const { select } = this.selectsArr[index];
+
+    select.classList.toggle('select_active');
+  }
+
+  toggleItem(index, activeItem) {
+    const { items, buttonText, target } = this.selectsArr[index];
+
+    buttonText.textContent = activeItem.textContent;
+    if (target) target.value = activeItem.textContent;
+
+    for (let i = 0; i < items.length; i += 1) {
+      if (items[i] === activeItem) {
+        items[i].classList.add('select__item_active');
+      } else {
+        items[i].classList.remove('select__item_active');
+      }
+    }
+  }
+}
+
+function disableSubmitAction() {
+  const buttons = document.querySelectorAll('*[type=submit]');
+  for (let i = 0; i < buttons.length; i += 1) {
+    buttons[i].addEventListener('click', (e) => { e.preventDefault(); });
   }
 }
 
@@ -113,6 +178,8 @@ window.onload = () => {
 
   if (navbar) navbarObj = new Navbar(navbar);
   if (selects) selectObg = new Select(selects);
+
+  disableSubmitAction();
 
   return { navbarObj, selectObg };
 };

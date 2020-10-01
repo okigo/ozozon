@@ -17,3 +17,16 @@ mixin image(islazy, name, alt, className)
 mixin svg-sprite-ico(name)
   svg(class='ico_' + name)
     use(href='#' + name xlink:href='#' + name)
+
+//- Select
+mixin select(targetId, itemsArray, activeItem)
+  div.select(data-select)
+    button.select__button(data-select-target = targetId)
+      span.select__button-text
+      i.ico.select__button-ico
+    ul.select__list
+      each item, index in itemsArray
+        if index === activeItem
+          li.select__item.select__item_active #{item}
+        else
+          li.select__item #{item}
