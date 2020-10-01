@@ -27,6 +27,13 @@
   margin-right: -15px
   margin-left: -15px
 
+  &_margin-xsm
+    margin-right: 0
+    margin-left: 0
+    @include media_min($break_min_sm)
+      margin-right: -15px
+      margin-left: -15px
+
 .container-del
   @include media_min($break_min_DEL)
     max-width: 540px

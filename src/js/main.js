@@ -93,6 +93,7 @@ class Select {
       this.selectsArr.push({
         index: i,
         select: selects[i],
+        zIndexBase: (100 + selects.length) - i,
         button,
         buttonText: selects[i].querySelector('.select__button-text'),
         selectTarget,
@@ -107,7 +108,14 @@ class Select {
 
   init() {
     for (let i = 0; i < this.selectsArr.length; i += 1) {
-      const { index, items } = this.selectsArr[i];
+      const {
+        index,
+        select,
+        items,
+        zIndexBase,
+      } = this.selectsArr[i];
+
+      select.style.zIndex = zIndexBase;
 
       for (let c = 0; c < items.length; c += 1) {
         if (items[c].classList.contains('select__item_active')) {

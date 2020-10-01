@@ -1,20 +1,29 @@
 // Main-form
 .main-form
-  @include flex($ds: flex, $dr: row, $a: center, $j: flex-start, $w: wrap, $b: 100%)
+  @include flex($ds: flex, $dr: row, $a: center, $j: space-around, $w: wrap, $b: 100%)
   font-family: 'Roboto', sans-serif
-  padding: 20px 28px
+  padding: 12px 28px 20px 28px
   background-color: $primary_bg_clr
   border-radius: 10px
+  width: 100%
   max-width: 810px
+  @include media-min($break_min_lg)
+    @include flex($j: flex-start)
 
 .main-form__group
-  @include flex($ds: flex, $dr: column, $a: flex-start, $b: 236px)
-
-  & ~ *:not(:first-child)
-    margin-left: 29px
+  @include flex($ds: flex, $dr: column, $a: flex-start, $b: 100%)
+  @include media-min($break_min_md)
+    @include flex($b: 45%)
+  @include media-min($break_min_lg)
+    @include flex($b: 236px)
+    & ~ *:not(:first-child)
+      margin-left: 30px
 
 .main-form__button
   align-self: flex-end
+  padding-top: 25px
+  @include media-min($break_min_lg)
+    padding-top: 0
 
 .main-form__label
   font-family: inherit

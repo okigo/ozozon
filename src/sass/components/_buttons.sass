@@ -18,7 +18,8 @@
 
   &__simple
     background: none
-    padding: 10px 45px
+    line-height: 2.45
+    padding: 0 4.45rem
 
     &_white
       color: $primary_clr
@@ -35,6 +36,17 @@
         box-shadow: 0 0 0 .2em rgba($primary_clr, .3)
 
   &__primary
+    font-weight: $fw_light
+    line-height: 2.8
+    padding: 0 3.6rem
+    background: linear-gradient( 90deg, rgb(130, 234, 173) 0%, rgb(111, 224, 242) 100%)
+    box-shadow: 0.342px 0.94px 4.8px 0.2px rgba(0, 0, 0, 0.2)
+
+    &:hover
+      box-shadow: 0 0 0 .2em rgba($secondary_accent_clr, .5)
+
+    &:active
+      box-shadow: 0 0 0 .2em rgba($secondary_accent_clr, .3)
 
 // Button-navbar
 .button-nav
@@ -63,7 +75,7 @@
   width: 70px
   height: 70px
   border-radius: 50%
-  background-color: $primary_accentLight_clr
+  background-color: $primary_accent_clr
   border: 1px solid transparent
   transition: all .2s ease-in-out
 
@@ -71,12 +83,12 @@
     outline: 0
 
   &:hover
-    border-color: $primary_accentLight_clr
-    box-shadow: 0 0 0 .2em rgba($primary_accentLight_clr, .5)
+    border-color: $primary_accent_clr
+    box-shadow: 0 0 0 .2em rgba($primary_accent_clr, .5)
 
   &:active
-    background-color: rgba($primary_accentLight_clr, .9)
-    box-shadow: 0 0 0 .2em rgba($primary_accentLight_clr, .3)
+    background-color: rgba($primary_accent_clr, .9)
+    box-shadow: 0 0 0 .2em rgba($primary_accent_clr, .3)
 
   &__ico
     @include sprite($ico_phone)

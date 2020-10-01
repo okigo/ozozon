@@ -4,14 +4,17 @@
 
   &__primary
     font-family: 'Intro', sans-serif
-    font-size: 4.6rem
+    font-size: 3rem
     font-weight: $fw_bold
     line-height: 1.042
-    color: $primary_clr
+    color: $primary_textLight_clr
+    @include media-min($break_min_md)
+      font-size: 3.5rem
+    @include media-min($break_min_lg)
+      font-size: 4.6rem
 
   &__secondary
     font-family: 'Roboto', sans-serif
     font-size: 3.6rem
     font-weight: $fw_medium
-    color: $secondary_clr
-
+    color: $primary_text_clr

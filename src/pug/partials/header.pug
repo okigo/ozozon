@@ -44,24 +44,29 @@ header.header
         i.ico.button-call__ico
 
     .container.header__container
-      .row.header__row
+      .row.row_margin-xsm.header__row
         .header__welcome
           h1.title.title__primary Уборка квартир в Москве и Подмосковье
           p.header__text Идеальный порядок каждую неделю
           p.header__price от 1590 руб
 
-          .header__form
-            form.main-form(id="main-form" action="" method="post" name="main-form")
+        .header__form
+          form.main-form(id="main-form" action="" method="post" name="main-form")
 
-              .main-form__group
-                label.main-form__label(for="cleaning") Тип уборки
-                input(type="hidden" id="cleaning" name="cleaning")
-                +select("cleaning", items.cleaning, 0)
+            .main-form__group
+              label.main-form__label(for="cleaning") Тип уборки
+              input(type="hidden" id="cleaning" name="cleaning")
+              +select("cleaning", items.cleaning, 0)
 
-              .main-form__group
-                label.main-form__label(for="rooms") Количество комнат
-                input(type="hidden" id="rooms" name="rooms")
-                +select("rooms", items.rooms, 1)
+            .main-form__group
+              label.main-form__label(for="rooms") Количество комнат
+              input(type="hidden" id="rooms" name="rooms")
+              +select("rooms", items.rooms, 1)
 
-              .main-form__button
-                input.button.button__primary(type="submit" value="Оформить заявку")
+            .main-form__button
+              input.button.button__primary(type="submit" value="Оформить заявку")
+
+        p.header__offer
+          | Закажите уборку на завтра прямо сейчас и получите СКИДКУ 15%.
+          br
+          | Промокод: #[span.header__promocode yesterday]

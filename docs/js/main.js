@@ -139,6 +139,7 @@ var Select = /*#__PURE__*/ function() {
       this.selectsArr.push({
         index: i,
         select: selects[i],
+        zIndexBase: 100 + selects.length - i,
         button: button,
         buttonText: selects[i].querySelector('.select__button-text'),
         selectTarget: selectTarget,
@@ -157,7 +158,10 @@ var Select = /*#__PURE__*/ function() {
       for (var i = 0; i < this.selectsArr.length; i += 1) {
         var _this$selectsArr$i = this.selectsArr[i],
           index = _this$selectsArr$i.index,
-          items = _this$selectsArr$i.items;
+          select = _this$selectsArr$i.select,
+          items = _this$selectsArr$i.items,
+          zIndexBase = _this$selectsArr$i.zIndexBase;
+        select.style.zIndex = zIndexBase;
 
         for (var c = 0; c < items.length; c += 1) {
           if (items[c].classList.contains('select__item_active')) {
