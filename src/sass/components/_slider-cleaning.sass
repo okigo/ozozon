@@ -1,0 +1,38 @@
+// Slider-cleaning
+
+#slider-cleaning
+
+.slider-cleaning
+  @include flex($ds: flex, $dr: column, $b: 977px)
+
+.slider-cleaning__header
+  @include flex($ds: flex, $dr: row, $j: center, $w: wrap)
+  font-size: 1.8rem
+  font-weight: $fw_light
+
+.slider-cleaning__indicators
+  @include flex($ds: flex, $dr: row, $w: wrap)
+
+.slider-cleaning__indicator
+  color: $quaternary_text_clr
+  text-decoration: none
+  border-bottom: 1px dashed $quaternary_text_clr
+  white-space: nowrap
+  user-select: none
+  cursor: pointer
+  margin-left: 30px
+  transition: all .2s ease-in-out
+
+  &:first-child
+    margin-left: 22px
+
+  &:hover,
+  &.active
+    border-bottom: 1px dashed rgba($quaternary_text_clr, 0)
+    color: $primary_accent_clr
+
+  &:focus
+    outline: 0
+
+.slider-cleaning__items
+  padding-top: 34px

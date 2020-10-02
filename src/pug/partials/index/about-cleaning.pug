@@ -1,0 +1,47 @@
+-
+  var slider = [
+    {
+      name: 'В комнате', img: 'img_005',
+      map: [
+        {type: 'primary', dir: 'left', top: '27.5%', left: '22.5%', text: 'Чистим зеркала<br>и стеклянные<br>поверхности'},
+        {type: 'secondary', dir: 'left', top: '47.5%', left: '68.7%', text: 'Расставляем обувь'},
+        {type: 'primary', dir: 'left', top: '56%', left: '44.5%', text: 'Протираем<br>двери'},
+        {type: 'secondary', dir: 'right', top: '64%', left: '64.3%', text: 'Очищаем выключатели<br>и дверные ручки'},
+        {type: 'primary', dir: 'left', top: '83.9%', left: '24.5%', text: 'Протираем все<br>доступные поверхности'},
+        {type: 'primary', dir: 'right', top: '88%', left: '59%', text: 'Протираем<br>плинтусы'},
+        {type: 'secondary', dir: 'left', top: '91.4%', left: '75.9%', text: 'Моем пол и<br>пылесосим коврики'},
+      ]
+    }
+  ]
+
+section.about-cleaning
+  .container.about-cleaning__container
+    .row.row_margin-xsm.about-cleaning__row
+
+      h2.title.title__secondary Про уборки
+
+      p.about-cleaning__text Клинер приедет со всем необходимым для уборки. Стоимость уборки рассчитывается от количества комнат.
+
+  .about-cleaning__slider
+
+    #slider-cleaning.slider-cleaning(data-slider)
+
+      .slider-cleaning__header В каждый тариф входит уборка:
+
+        ul.slider-cleaning__indicators(data-slider-indicators="slider-cleaning")
+          li.slider-cleaning__indicator.active(data-slide-to="0") В комнате
+          li.slider-cleaning__indicator(data-slide-to="1") На кухне
+          li.slider-cleaning__indicator(data-slide-to="2") В ванной и туалете
+          li.slider-cleaning__indicator(data-slide-to="3") В коридоре
+
+      ul.slider-cleaning__items(data-slider-items)
+        li(data-slider-slide)
+
+          figure.image-map
+            +image(false, 'img_005', 'В комнате', 'image-map__img')
+            each map, index in slider[0].map
+              div(class="image-map__mark image-map__mark_" + map.dir style="top:" + map.top + ";left:" + map.left + ";")
+                i(class="image-map__mark-icon image-map__mark-icon_" + map.type)
+                p.image-map__mark-text !{map.text}
+
+

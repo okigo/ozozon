@@ -1,0 +1,39 @@
+// Image-maps
+.image-map
+  position: relative
+
+.image-map__img
+
+.image-map__mark
+  position: absolute
+  // top: 91.4%
+  // left: 75.9%
+  @include flex($ds: flex, $dr: row, $w: wrap)
+  text-align: left
+
+  &_right
+    @include flex($dr: row-reverse)
+    text-align: right
+
+  &_left
+    @include flex($dr: row)
+
+.image-map__mark-icon
+  width: 13px
+  height: 13px
+  border: 2px solid $secondary_border_clr
+  border-radius: 50%
+  box-shadow: 0px 0px 4px 2px $primary_clr
+
+  &_primary
+    background-color: $secondary_accent_clr
+
+  &_secondary
+    background-color: $tertiary_accent_clr
+
+.image-map__mark-text
+  font-size: 1.4rem
+  line-height: 1.3
+  color: $primary_textLight_clr
+  padding: 0 8px
+  margin-top: -2px
