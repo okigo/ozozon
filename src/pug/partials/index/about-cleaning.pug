@@ -3,13 +3,13 @@
     {
       name: 'В комнате', img: 'img_005',
       map: [
-        {type: 'primary', dir: 'left', top: '27.5%', left: '22.5%', text: 'Чистим зеркала<br>и стеклянные<br>поверхности'},
-        {type: 'secondary', dir: 'left', top: '47.5%', left: '68.7%', text: 'Расставляем обувь'},
-        {type: 'primary', dir: 'left', top: '56%', left: '44.5%', text: 'Протираем<br>двери'},
-        {type: 'secondary', dir: 'right', top: '64%', left: '64.3%', text: 'Очищаем выключатели<br>и дверные ручки'},
-        {type: 'primary', dir: 'left', top: '83.9%', left: '24.5%', text: 'Протираем все<br>доступные поверхности'},
-        {type: 'primary', dir: 'right', top: '88%', left: '59%', text: 'Протираем<br>плинтусы'},
-        {type: 'secondary', dir: 'left', top: '91.4%', left: '75.9%', text: 'Моем пол и<br>пылесосим коврики'},
+        {type: 'primary', dir: 'left', style: 'top:27.5%;left:22.5%;', text: 'Чистим зеркала<br>и стеклянные<br>поверхности'},
+        {type: 'secondary', dir: 'left', style: 'top:47.5%;left:68.7%;', text: 'Расставляем обувь'},
+        {type: 'primary', dir: 'left', style: 'top:56%;left:44.5%;', text: 'Протираем<br>двери'},
+        {type: 'secondary', dir: 'right', style: 'top:64%;right:16.4%;', text: 'Очищаем выключатели<br>и дверные ручки'},
+        {type: 'primary', dir: 'left', style: 'top:83.9%;left:24.5%;', text: 'Протираем все<br>доступные поверхности'},
+        {type: 'primary', dir: 'right', style: 'top:88%;right:29.8%;', text: 'Протираем<br>плинтусы'},
+        {type: 'secondary', dir: 'left', style: 'top:91.4%;left:75.9%;', text: 'Моем пол и<br>пылесосим коврики'},
       ]
     }
   ]
@@ -40,8 +40,6 @@ section.about-cleaning
           figure.image-map
             +image(false, 'img_005', 'В комнате', 'image-map__img')
             each map, index in slider[0].map
-              div(class="image-map__mark image-map__mark_" + map.dir style="top:" + map.top + ";left:" + map.left + ";")
+              div(class="image-map__mark image-map__mark_" + map.dir style = map.style)
                 i(class="image-map__mark-icon image-map__mark-icon_" + map.type)
                 p.image-map__mark-text !{map.text}
-
-
