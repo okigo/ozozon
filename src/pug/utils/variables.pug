@@ -1,0 +1,93 @@
+//- Header menu
+-
+  var menuHeader = [
+    {name: 'Про уборки', link: '#!'},
+    {name: 'Оформить заказ', link: '#!'},
+    {name: 'О нас', link: '#!'},
+    {name: 'Отзывы', link: '#!'},
+    {name: 'F.A.Q.', link: '#!'},
+    {name: 'Акции', link: '#!'}
+  ]
+
+//- Header select items
+-
+  var itemsHeaderSelect = [
+      {
+        name: 'Тип уборки',
+        targetId: 'cleaning',
+        itemsArray: ['Поддерживающая', 'Генеральная'],
+        activeItem: 0
+      },
+      {
+        name: 'Количество комнат',
+        targetId: 'rooms',
+        itemsArray: ['Студия', '1-комнатная', '2-комнатная', '3-комнатная', '4-комнатная'],
+        activeItem: 1
+      }
+  ]
+
+//- Slider-cleaning
+-
+  var sliderCleaning = [
+    {
+      name: 'В комнате', img: 'img_002',
+      map: [
+        {type: 'primary', dir: 'left', style: 'top:0%;left:0%;', text: 'Чистим зеркала <br>и стеклянные <br>поверхности'},
+        {type: 'secondary', dir: 'left', style: 'top:0%;left:0%;', text: 'Мойка радиатора <br>отопления'},
+        {type: 'primary', dir: 'right', style: 'top:0%;right:0%;', text: 'Протираем <br>мебель'},
+        {type: 'secondary', dir: 'left', style: 'top:0%;left:0%;', text: 'Обеспыливание <br>светильников'},
+        {type: 'primary', dir: 'right', style: 'top:0%;right:0%;', text: 'Вычищаем пыль <br>из углов'},
+        {type: 'secondary', dir: 'left', style: 'top:0%;left:0%;', text: 'Очистка выключателей <br>и дверных ручек'},
+        {type: 'primary', dir: 'left', style: 'top:0%;left:0%;', text: 'Протираем плинтусы'},
+        {type: 'primary', dir: 'left', style: 'top:0%;left:0%;', text: 'Убираем мусор'},
+        {type: 'primary', dir: 'left', style: 'top:0%;left:0%;', text: 'Пылесосим ковры'},
+        {type: 'primary', dir: 'left', style: 'top:0%;left:0%;', text: 'Моем пол'}
+      ]
+    },
+    {
+      name: 'На кухне', img: 'img_003',
+      map: [
+        {type: 'primary', dir: 'right', style: 'top:0%;right:0%;', text: 'Вычищаем пыль <br>из углов'},
+        {type: 'primary', dir: 'left', style: 'top:0%;left:0%;', text: 'Моем плиту, холодильник и <br>другую бытовую технику'},
+        {type: 'primary', dir: 'left', style: 'top:0%;left:0%;', text: 'Протираем шкафчики'},
+        {type: 'secondary', dir: 'left', style: 'top:0%;left:0%;', text: 'Обеспыливание <br>светильников'},
+        {type: 'primary', dir: 'left', style: 'top:0%;left:0%;', text: 'Моем плитку'},
+        {type: 'secondary', dir: 'left', style: 'top:0%;left:0%;', text: 'Моем посуду'},
+        {type: 'primary', dir: 'left', style: 'top:0%;left:0%;', text: 'Чистим раковину'},
+        {type: 'secondary', dir: 'right', style: 'top:0%;right:0%;', text: 'Удаляем все виды <br>жировых отложения'},
+        {type: 'primary', dir: 'left', style: 'top:0%;left:0%;', text: 'Протираем столешницу, <br>обеденный стол'},
+        {type: 'primary', dir: 'left', style: 'top:0%;left:0%;', text: 'Убираем мусор'},
+        {type: 'primary', dir: 'right', style: 'top:0%;right:0%;', text: 'Протираем плинтусы'},
+        {type: 'primary', dir: 'left', style: 'top:0%;left:0%;', text: 'Протираем двери'},
+        {type: 'primary', dir: 'left', style: 'top:0%;left:0%;', text: 'Моем пол'},
+        {type: 'secondary', dir: 'left', style: 'top:0%;left:0%;', text: 'Очищаем выключатели и дверные ручки'}
+      ]
+    },
+    {
+      name: 'В ванной и туалете', img: 'img_004',
+      map: [
+        {type: 'secondary', dir: 'left', style: 'top:0%;left:0%;', text: 'Очищаем кафель в ванной <br>от всех загрязнений'},
+        {type: 'primary', dir: 'left', style: 'top:0%;left:0%;', text: 'Чистим зеркала <br>и стеклянные <br>поверхности'},
+        {type: 'secondary', dir: 'left', style: 'top:0%;left:0%;', text: 'Очищаем кафель в ванной <br>от всех загрязнений'},
+        {type: 'primary', dir: 'left', style: 'top:0%;left:0%;', text: 'Моем и дезинфицируем <br>ванну, раковину, джакузи <br>душевую кабину <br>унитаз'},
+        {type: 'secondary', dir: 'left', style: 'top:0%;left:0%;', text: 'Очистка выключателей <br>и дверных ручек'},
+        {type: 'primary', dir: 'left', style: 'top:0%;left:0%;', text: 'Протираем <br>шкафы'},
+        {type: 'primary', dir: 'left', style: 'top:0%;left:0%;', text: 'Протираем двери'},
+        {type: 'primary', dir: 'left', style: 'top:0%;left:0%;', text: 'Протираем <br>плинтусы'},
+        {type: 'primary', dir: 'left', style: 'top:0%;left:0%;', text: 'Пылесосим ковры <br>и моем пол'},
+        {type: 'primary', dir: 'left', style: 'top:0%;left:0%;', text: 'Убираем мусор'}
+      ]
+    },
+    {
+      name: 'В комнате', img: 'img_005',
+      map: [
+        {type: 'primary', dir: 'left', style: 'top:27.5%;left:22.5%;', text: 'Чистим зеркала <br>и стеклянные <br>поверхности'},
+        {type: 'secondary', dir: 'left', style: 'top:47.5%;left:68.7%;', text: 'Расставляем обувь'},
+        {type: 'primary', dir: 'left', style: 'top:56%;left:44.5%;', text: 'Протираем <br>двери'},
+        {type: 'secondary', dir: 'right', style: 'top:64%;right:16.4%;', text: 'Очищаем выключатели <br>и дверные ручки'},
+        {type: 'primary', dir: 'left', style: 'top:83.9%;left:24.5%;', text: 'Протираем все <br>доступные поверхности'},
+        {type: 'primary', dir: 'right', style: 'top:88%;right:29.8%;', text: 'Протираем <br>плинтусы'},
+        {type: 'secondary', dir: 'left', style: 'top:91.4%;left:75.9%;', text: 'Моем пол и <br>пылесосим коврики'}
+      ]
+    }
+  ]

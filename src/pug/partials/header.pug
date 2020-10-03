@@ -1,19 +1,3 @@
--
-  var menu = [
-    {name: 'Про уборки', link: '#!'},
-    {name: 'Оформить заказ', link: '#!'},
-    {name: 'О нас', link: '#!'},
-    {name: 'Отзывы', link: '#!'},
-    {name: 'F.A.Q.', link: '#!'},
-    {name: 'Акции', link: '#!'}
-  ]
-
--
-  var items = {
-      cleaning: ['Поддерживающая', 'Генеральная'],
-      rooms: ['Студия', '1-комнатная', '2-комнатная', '3-комнатная', '4-комнатная'],
-  }
-
 header.header
   .navbar
 
@@ -25,7 +9,7 @@ header.header
         .navbar__nav-wrap.navbar__nav-wrap_overflow
           nav.nav
             ul.nav__menu
-              each item, index in menu
+              each item, index in menuHeader
                 li.nav__item
                   a.nav__link(href=item.link) #{item.name}
             .nav__phone
@@ -53,15 +37,11 @@ header.header
         .header__form
           form.main-form(id="main-form" action="" method="post" name="main-form")
 
-            .main-form__group
-              label.main-form__label(for="cleaning") Тип уборки
-              input(type="hidden" id="cleaning" name="cleaning")
-              +select("cleaning", items.cleaning, 0)
-
-            .main-form__group
-              label.main-form__label(for="rooms") Количество комнат
-              input(type="hidden" id="rooms" name="rooms")
-              +select("rooms", items.rooms, 1)
+            each item, index in itemsHeaderSelect
+              .main-form__group
+                label.main-form__label(for = item.targetId) #{item.name}
+                input(type="hidden" id = item.targetId name = item.targetId)
+                +select(item.targetId, item.itemsArray, item.activeItem)
 
             .main-form__button
               input.button.button__primary(type="submit" value="Оформить заявку")
