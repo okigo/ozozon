@@ -180,6 +180,7 @@ function disableSubmitAction() {
 window.onload = () => {
   let navbarObj;
   let selectObg;
+  let imageMapObj;
 
   const navbar = document.querySelector('.navbar');
   const selects = document.querySelectorAll('[data-select]');
@@ -189,5 +190,5 @@ window.onload = () => {
 
   disableSubmitAction();
 
-  return { navbarObj, selectObg };
+  return { navbarObj, selectObg, imageMapObj };
 };

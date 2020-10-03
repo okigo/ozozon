@@ -13,17 +13,18 @@ section.about-cleaning
       .slider-cleaning__header В каждый тариф входит уборка:
 
         ul.slider-cleaning__indicators(data-slider-indicators="slider-cleaning")
-          li.slider-cleaning__indicator.active(data-slide-to="0") В комнате
-          li.slider-cleaning__indicator(data-slide-to="1") На кухне
-          li.slider-cleaning__indicator(data-slide-to="2") В ванной и туалете
-          li.slider-cleaning__indicator(data-slide-to="3") В коридоре
+
+          each item, index in sliderCleaning
+            li.slider-cleaning__indicator(data-slide-to = index) #{item.name}
 
       ul.slider-cleaning__items(data-slider-items)
-        li(data-slider-slide)
 
-          figure.image-map
-            +image(false, 'img_005', 'В комнате', 'image-map__img')
-            each map, index in sliderCleaning[3].map
-              div(class="image-map__mark image-map__mark_" + map.dir style = map.style)
-                i(class="image-map__mark-icon image-map__mark-icon_" + map.type)
-                p.image-map__mark-text !{map.text}
+        each item, index in sliderCleaning
+          li(data-slider-slide)
+            figure.image-map
+              +image(false, item.img, item.name, 'image-map__img')
+
+              each mapItem, index in item.map
+                div(class="image-map__mark image-map__mark_" + mapItem.dir style = mapItem.style)
+                  i(class="image-map__mark-icon image-map__mark-icon_" + mapItem.type)
+                  //- p.image-map__mark-text !{mapItem.text}

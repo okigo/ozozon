@@ -245,6 +245,7 @@ function disableSubmitAction() {
 window.onload = function() {
   var navbarObj;
   var selectObg;
+  var imageMapObj;
   var navbar = document.querySelector('.navbar');
   var selects = document.querySelectorAll('[data-select]');
   if (navbar) navbarObj = new Navbar(navbar);
@@ -252,6 +253,7 @@ window.onload = function() {
   disableSubmitAction();
   return {
     navbarObj: navbarObj,
-    selectObg: selectObg
+    selectObg: selectObg,
+    imageMapObj: imageMapObj
   };
 };
