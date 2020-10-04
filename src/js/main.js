@@ -80,8 +80,8 @@ class Navbar {
   }
 }
 
-// -- Select -- //
-class Select {
+// -- Selects -- //
+class Selects {
   constructor(selects) {
     this.selectsArr = [];
 
@@ -170,6 +170,128 @@ class Select {
   }
 }
 
+class Tooltips {
+  constructor(tooltipTargets, tooltipClass, tooltipParent) {
+    this.tooltipsArr = [];
+    this.indent = 10;
+
+    for (let i = 0; i < tooltipTargets.length; i += 1) {
+      const parent = tooltipTargets[i].closest(tooltipParent);
+
+      this.tooltipsArr.push({
+        tg: tooltipTargets[i],
+        tgCoords: Tooltips.getCoords(tooltipTargets[i]),
+        ttp: null,
+        ttpStatus: 'hide',
+        ttpClass: tooltipClass,
+        ttpContent: tooltipTargets[i].dataset.tooltipContent,
+        ttpPosition: tooltipTargets[i].dataset.tooltipPosition,
+        ttpPr: parent,
+        prCoords: Tooltips.getCoords(parent),
+      });
+    }
+
+    this.setListeners();
+  }
+
+  static getCoords(element) {
+    const rect = element.getBoundingClientRect();
+
+    return {
+      top: rect.top + window.pageYOffset,
+      right: rect.right + window.pageXOffset,
+      bottom: rect.bottom + window.pageYOffset,
+      left: rect.left + window.pageXOffset,
+    };
+  }
+
+  setListeners() {
+    window.addEventListener('resize', () => {
+      for (let i = 0; i < this.tooltipsArr.length; i += 1) {
+        const { tg, ttpStatus, ttpPr } = this.tooltipsArr[i];
+
+        this.tooltipsArr[i].tgCoords = Tooltips.getCoords(tg);
+        this.tooltipsArr[i].prCoords = Tooltips.getCoords(ttpPr);
+
+        if (ttpStatus === 'show') this.setTooltipCoords(i);
+      }
+    });
+
+    for (let i = 0; i < this.tooltipsArr.length; i += 1) {
+      this.tooltipsArr[i].tg.addEventListener('mouseover', () => {
+        this.createTooltip(i);
+        this.setTooltipCoords(i);
+        this.showTooltip(i);
+      });
+
+      this.tooltipsArr[i].tg.addEventListener('mouseout', () => {
+        this.destroyTooltip(i);
+        this.tooltipsArr[i].ttpStatus = 'hide';
+      });
+    }
+  }
+
+  createTooltip(index) {
+    const { ttpClass, ttpContent, ttpPosition } = this.tooltipsArr[index];
+
+    const ttp = document.createElement('div');
+    ttp.className = `${ttpClass} ${ttpClass}_${ttpPosition}`;
+    ttp.innerHTML = ttpContent;
+    document.body.append(ttp);
+
+    this.tooltipsArr[index].ttp = ttp;
+  }
+
+  setTooltipCoords(index) {
+    const {
+      tgCoords,
+      ttp,
+      ttpPosition,
+      prCoords,
+    } = this.tooltipsArr[index];
+
+    let tooltipLeftCoord;
+    const tooltipTopCoord = tgCoords.top;
+
+    if (ttpPosition === 'right') {
+      const tooltipRight = tgCoords.right + ttp.offsetWidth + this.indent;
+      const right = Math.min(tooltipRight, prCoords.right, document.documentElement.clientWidth);
+
+      if (tgCoords.right + this.indent > right - ttp.offsetWidth) {
+        tooltipLeftCoord = Math.max(tgCoords.left - ttp.offsetWidth - this.indent, prCoords.left);
+      } else {
+        tooltipLeftCoord = right - ttp.offsetWidth;
+      }
+    }
+
+    if (ttpPosition === 'left') {
+      const tooltipLeft = tgCoords.left - ttp.offsetWidth - this.indent;
+      const left = Math.max(tooltipLeft, prCoords.left, 0);
+
+      if (tgCoords.left < left + ttp.offsetWidth) {
+        tooltipLeftCoord = tgCoords.right;
+      } else {
+        tooltipLeftCoord = left;
+      }
+    }
+
+    ttp.style.left = `${Math.round(tooltipLeftCoord)}px`;
+    ttp.style.top = `${Math.round(tooltipTopCoord)}px`;
+  }
+
+  showTooltip(index) {
+    this.setTooltipCoords(index);
+    this.tooltipsArr[index].ttp.classList.add('active');
+    this.tooltipsArr[index].ttpStatus = 'show';
+  }
+
+  destroyTooltip(index) {
+    let { ttp } = this.tooltipsArr[index];
+    ttp.remove();
+    ttp = null;
+  }
+}
+
 function disableSubmitAction() {
   const buttons = document.querySelectorAll('*[type=submit]');
   for (let i = 0; i < buttons.length; i += 1) {
@@ -180,15 +302,17 @@ function disableSubmitAction() {
 window.onload = () => {
   let navbarObj;
   let selectObg;
-  let imageMapObj;
+  let tooltipObj;
 
   const navbar = document.querySelector('.navbar');
   const selects = document.querySelectorAll('[data-select]');
+  const tooltipTargets = document.querySelectorAll('[data-tooltip-content]');
 
   if (navbar) navbarObj = new Navbar(navbar);
-  if (selects) selectObg = new Select(selects);
+  if (selects) selectObg = new Selects(selects);
+  if (tooltipTargets) tooltipObj = new Tooltips(tooltipTargets, 'tooltip', 'body');
 
   disableSubmitAction();
 
-  return { navbarObj, selectObg, imageMapObj };
+  return { navbarObj, selectObg, tooltipObj };
 };

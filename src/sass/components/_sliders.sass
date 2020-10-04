@@ -10,7 +10,9 @@
   font-weight: $fw_light
 
 .slider-cleaning__indicators
-  @include flex($ds: flex, $dr: row, $w: wrap)
+  @include flex($ds: flex, $dr: column, $j: center, $w: wrap, $b: 50%)
+  @include media-min($break_min_sm)
+    @include flex($ds: flex, $dr: row, $b: auto)
 
 .slider-cleaning__indicator
   color: $quaternary_text_clr
@@ -19,11 +21,15 @@
   white-space: nowrap
   user-select: none
   cursor: pointer
-  margin-left: 30px
+  margin-left: 0
   transition: all .2s ease-in-out
+  @include media-min($break_min_sm)
+    margin-left: 30px
 
   &:first-child
-    margin-left: 22px
+    margin-left: 0
+    @include media-min($break_min_sm)
+      margin-left: 22px
 
   &:hover,
   &.active

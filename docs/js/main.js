@@ -123,12 +123,12 @@ var Navbar = /*#__PURE__*/ function() {
   }]);
 
   return Navbar;
-}(); // -- Select -- //
+}(); // -- Selects -- //
 
 
-var Select = /*#__PURE__*/ function() {
-  function Select(selects) {
-    _classCallCheck(this, Select);
+var Selects = /*#__PURE__*/ function() {
+  function Selects(selects) {
+    _classCallCheck(this, Selects);
 
     this.selectsArr = [];
 
@@ -152,7 +152,7 @@ var Select = /*#__PURE__*/ function() {
     this.init();
   }
 
-  _createClass(Select, [{
+  _createClass(Selects, [{
     key: "init",
     value: function init() {
       for (var i = 0; i < this.selectsArr.length; i += 1) {
@@ -229,7 +229,148 @@ var Select = /*#__PURE__*/ function() {
     }
   }]);
 
-  return Select;
+  return Selects;
+}();
+
+var Tooltips = /*#__PURE__*/ function() {
+  function Tooltips(tooltipTargets, tooltipClass, tooltipParent) {
+    _classCallCheck(this, Tooltips);
+
+    this.tooltipsArr = [];
+    this.indent = 10;
+
+    for (var i = 0; i < tooltipTargets.length; i += 1) {
+      var parent = tooltipTargets[i].closest(tooltipParent);
+      this.tooltipsArr.push({
+        tg: tooltipTargets[i],
+        tgCoords: Tooltips.getCoords(tooltipTargets[i]),
+        ttp: null,
+        ttpStatus: 'hide',
+        ttpClass: tooltipClass,
+        ttpContent: tooltipTargets[i].dataset.tooltipContent,
+        ttpPosition: tooltipTargets[i].dataset.tooltipPosition,
+        ttpPr: parent,
+        prCoords: Tooltips.getCoords(parent)
+      });
+    }
+
+    this.setListeners();
+  }
+
+  _createClass(Tooltips, [{
+    key: "setListeners",
+    value: function setListeners() {
+      var _this5 = this;
+
+      window.addEventListener('resize', function() {
+        for (var i = 0; i < _this5.tooltipsArr.length; i += 1) {
+          var _this5$tooltipsArr$i = _this5.tooltipsArr[i],
+            tg = _this5$tooltipsArr$i.tg,
+            ttpStatus = _this5$tooltipsArr$i.ttpStatus,
+            ttpPr = _this5$tooltipsArr$i.ttpPr;
+          _this5.tooltipsArr[i].tgCoords = Tooltips.getCoords(tg);
+          _this5.tooltipsArr[i].prCoords = Tooltips.getCoords(ttpPr);
+          if (ttpStatus === 'show') _this5.setTooltipCoords(i);
+        }
+      });
+
+      var _loop2 = function _loop2(i) {
+        _this5.tooltipsArr[i].tg.addEventListener('mouseover', function() {
+          _this5.createTooltip(i);
+
+          _this5.setTooltipCoords(i);
+
+          _this5.showTooltip(i);
+        });
+
+        _this5.tooltipsArr[i].tg.addEventListener('mouseout', function() {
+          _this5.destroyTooltip(i);
+
+          _this5.tooltipsArr[i].ttpStatus = 'hide';
+        });
+      };
+
+      for (var i = 0; i < this.tooltipsArr.length; i += 1) {
+        _loop2(i);
+      }
+    }
+  }, {
+    key: "createTooltip",
+    value: function createTooltip(index) {
+      var _this$tooltipsArr$ind = this.tooltipsArr[index],
+        ttpClass = _this$tooltipsArr$ind.ttpClass,
+        ttpContent = _this$tooltipsArr$ind.ttpContent,
+        ttpPosition = _this$tooltipsArr$ind.ttpPosition;
+      var ttp = document.createElement('div');
+      ttp.className = "".concat(ttpClass, " ").concat(ttpClass, "_").concat(ttpPosition);
+      ttp.innerHTML = ttpContent;
+      document.body.append(ttp);
+      this.tooltipsArr[index].ttp = ttp;
+    }
+  }, {
+    key: "setTooltipCoords",
+    value: function setTooltipCoords(index) {
+      var _this$tooltipsArr$ind2 = this.tooltipsArr[index],
+        tgCoords = _this$tooltipsArr$ind2.tgCoords,
+        ttp = _this$tooltipsArr$ind2.ttp,
+        ttpPosition = _this$tooltipsArr$ind2.ttpPosition,
+        prCoords = _this$tooltipsArr$ind2.prCoords;
+      var tooltipLeftCoord;
+      var tooltipTopCoord = tgCoords.top;
+
+      if (ttpPosition === 'right') {
+        var tooltipRight = tgCoords.right + ttp.offsetWidth + this.indent;
+        var right = Math.min(tooltipRight, prCoords.right, document.documentElement.clientWidth);
+
+        if (tgCoords.right + this.indent > right - ttp.offsetWidth) {
+          tooltipLeftCoord = Math.max(tgCoords.left - ttp.offsetWidth - this.indent, prCoords.left);
+        } else {
+          tooltipLeftCoord = right - ttp.offsetWidth;
+        }
+      }
+
+      if (ttpPosition === 'left') {
+        var tooltipLeft = tgCoords.left - ttp.offsetWidth - this.indent;
+        var left = Math.max(tooltipLeft, prCoords.left, 0);
+
+        if (tgCoords.left < left + ttp.offsetWidth) {
+          tooltipLeftCoord = tgCoords.right;
+        } else {
+          tooltipLeftCoord = left;
+        }
+      }
+
+      ttp.style.left = "".concat(Math.round(tooltipLeftCoord), "px");
+      ttp.style.top = "".concat(Math.round(tooltipTopCoord), "px");
+    }
+  }, {
+    key: "showTooltip",
+    value: function showTooltip(index) {
+      this.setTooltipCoords(index);
+      this.tooltipsArr[index].ttp.classList.add('active');
+      this.tooltipsArr[index].ttpStatus = 'show';
+    }
+  }, {
+    key: "destroyTooltip",
+    value: function destroyTooltip(index) {
+      var ttp = this.tooltipsArr[index].ttp;
+      ttp.remove();
+      ttp = null;
+    }
+  }], [{
+    key: "getCoords",
+    value: function getCoords(element) {
+      var rect = element.getBoundingClientRect();
+      return {
+        top: rect.top + window.pageYOffset,
+        right: rect.right + window.pageXOffset,
+        bottom: rect.bottom + window.pageYOffset,
+        left: rect.left + window.pageXOffset
+      };
+    }
+  }]);
+
+  return Tooltips;
 }();
 
 function disableSubmitAction() {
@@ -245,15 +386,17 @@ function disableSubmitAction() {
 window.onload = function() {
   var navbarObj;
   var selectObg;
-  var imageMapObj;
+  var tooltipObj;
   var navbar = document.querySelector('.navbar');
   var selects = document.querySelectorAll('[data-select]');
+  var tooltipTargets = document.querySelectorAll('[data-tooltip-content]');
   if (navbar) navbarObj = new Navbar(navbar);
-  if (selects) selectObg = new Select(selects);
+  if (selects) selectObg = new Selects(selects);
+  if (tooltipTargets) tooltipObj = new Tooltips(tooltipTargets, 'tooltip', 'body');
   disableSubmitAction();
   return {
     navbarObj: navbarObj,
     selectObg: selectObg,
-    imageMapObj: imageMapObj
+    tooltipObj: tooltipObj
   };
 };

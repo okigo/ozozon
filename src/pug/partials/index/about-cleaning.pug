@@ -25,6 +25,4 @@ section.about-cleaning
               +image(false, item.img, item.name, 'image-map__img')
 
               each mapItem, index in item.map
-                div(class="image-map__mark image-map__mark_" + mapItem.dir style = mapItem.style)
-                  i(class="image-map__mark-icon image-map__mark-icon_" + mapItem.type)
-                  //- p.image-map__mark-text !{mapItem.text}
+                i(class="image-map__marker image-map__marker_" + mapItem.type style = mapItem.style data-tooltip-content = mapItem.tpCont data-tooltip-position = mapItem.tpPos)
