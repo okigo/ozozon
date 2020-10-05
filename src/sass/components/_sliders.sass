@@ -1,6 +1,7 @@
 // Slider-cleaning
 .slider-cleaning
   @include flex($ds: flex, $dr: column, $b: 977px)
+  overflow: hidden
 
 .slider-cleaning__header
   @include flex($ds: flex, $dr: row, $j: center, $w: wrap)
@@ -38,13 +39,13 @@
     outline: 0
 
 .slider-cleaning__items
+  @include flex($ds: flex, $dr: row, $j: flex-start, $w: nowrap)
   padding-top: 34px
 
 .slider-cleaning__slide
-  display: none
+  min-width: 100%
 
   &.show
-    display: block
     animation: showSlide .5s ease-in
 
 @keyframes showSlide

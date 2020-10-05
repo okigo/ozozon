@@ -408,6 +408,7 @@ var Slider = /*#__PURE__*/ function() {
       slInds: sliderIndicators,
       slTo: sliderIndicators.querySelectorAll('[data-slide-to]')
     };
+    this.slideOffset = this.conf.slSlds[0].offsetWidth;
     this.setListeners();
     this.toggleSlide(this.slideIndex);
   }
@@ -430,6 +431,12 @@ var Slider = /*#__PURE__*/ function() {
       for (var i = 0; i < slTo.length; i += 1) {
         _loop3(i);
       }
+
+      window.addEventListener('resize', function() {
+        _this6.slideOffset = _this6.conf.slSlds[0].offsetWidth;
+
+        _this6.shiftItemsWrapper();
+      });
     }
   }, {
     key: "toggleSlide",
@@ -448,8 +455,16 @@ var Slider = /*#__PURE__*/ function() {
         slTo[_i].classList.remove('active');
       }
 
+      this.shiftItemsWrapper();
       slSlds[this.slideIndex].classList.add('show');
       slTo[this.slideIndex].classList.add('active');
+    }
+  }, {
+    key: "shiftItemsWrapper",
+    value: function shiftItemsWrapper() {
+      var slIts = this.conf.slIts;
+      var shift = this.slideIndex * -this.slideOffset;
+      slIts.style.cssText = "transform: translateX(".concat(shift, "px);");
     }
   }]);
 
