@@ -25,7 +25,18 @@ function _createClass(Constructor, protoProps, staticProps) {
 // http://localhost:3000/
 // http://192.168.0.11:3000/
 // /*eslint-disable */
-// -- Navbar -- //
+// -- Disable submit form action -- //
+function disableSubmitAction() {
+  var buttons = document.querySelectorAll('*[type=submit]');
+
+  for (var i = 0; i < buttons.length; i += 1) {
+    buttons[i].addEventListener('click', function(e) {
+      e.preventDefault();
+    });
+  }
+} // -- Navbar -- //
+
+
 var Navbar = /*#__PURE__*/ function() {
   function Navbar(navbar) {
     _classCallCheck(this, Navbar);
@@ -264,12 +275,10 @@ var Tooltips = /*#__PURE__*/ function() {
 
       window.addEventListener('resize', function() {
         for (var i = 0; i < _this5.tooltipsArr.length; i += 1) {
-          var _this5$tooltipsArr$i = _this5.tooltipsArr[i],
-            tg = _this5$tooltipsArr$i.tg,
-            ttpStatus = _this5$tooltipsArr$i.ttpStatus,
-            ttpPr = _this5$tooltipsArr$i.ttpPr;
-          _this5.tooltipsArr[i].tgCoords = Tooltips.getCoords(tg);
-          _this5.tooltipsArr[i].prCoords = Tooltips.getCoords(ttpPr);
+          var ttpStatus = _this5.tooltipsArr[i].ttpStatus;
+
+          _this5.updateBaseCoords(i);
+
           if (ttpStatus === 'show') _this5.setTooltipCoords(i);
         }
       });
@@ -295,12 +304,21 @@ var Tooltips = /*#__PURE__*/ function() {
       }
     }
   }, {
+    key: "updateBaseCoords",
+    value: function updateBaseCoords(index) {
+      var _this$tooltipsArr$ind = this.tooltipsArr[index],
+        tg = _this$tooltipsArr$ind.tg,
+        ttpPr = _this$tooltipsArr$ind.ttpPr;
+      this.tooltipsArr[index].tgCoords = Tooltips.getCoords(tg);
+      this.tooltipsArr[index].prCoords = Tooltips.getCoords(ttpPr);
+    }
+  }, {
     key: "createTooltip",
     value: function createTooltip(index) {
-      var _this$tooltipsArr$ind = this.tooltipsArr[index],
-        ttpClass = _this$tooltipsArr$ind.ttpClass,
-        ttpContent = _this$tooltipsArr$ind.ttpContent,
-        ttpPosition = _this$tooltipsArr$ind.ttpPosition;
+      var _this$tooltipsArr$ind2 = this.tooltipsArr[index],
+        ttpClass = _this$tooltipsArr$ind2.ttpClass,
+        ttpContent = _this$tooltipsArr$ind2.ttpContent,
+        ttpPosition = _this$tooltipsArr$ind2.ttpPosition;
       var ttp = document.createElement('div');
       ttp.className = "".concat(ttpClass, " ").concat(ttpClass, "_").concat(ttpPosition);
       ttp.innerHTML = ttpContent;
@@ -310,11 +328,12 @@ var Tooltips = /*#__PURE__*/ function() {
   }, {
     key: "setTooltipCoords",
     value: function setTooltipCoords(index) {
-      var _this$tooltipsArr$ind2 = this.tooltipsArr[index],
-        tgCoords = _this$tooltipsArr$ind2.tgCoords,
-        ttp = _this$tooltipsArr$ind2.ttp,
-        ttpPosition = _this$tooltipsArr$ind2.ttpPosition,
-        prCoords = _this$tooltipsArr$ind2.prCoords;
+      this.updateBaseCoords(index);
+      var _this$tooltipsArr$ind3 = this.tooltipsArr[index],
+        tgCoords = _this$tooltipsArr$ind3.tgCoords,
+        ttp = _this$tooltipsArr$ind3.ttp,
+        ttpPosition = _this$tooltipsArr$ind3.ttpPosition,
+        prCoords = _this$tooltipsArr$ind3.prCoords;
       var tooltipLeftCoord;
       var tooltipTopCoord = tgCoords.top;
 
@@ -373,30 +392,88 @@ var Tooltips = /*#__PURE__*/ function() {
   return Tooltips;
 }();
 
-function disableSubmitAction() {
-  var buttons = document.querySelectorAll('*[type=submit]');
+var Slider = /*#__PURE__*/ function() {
+  function Slider(slider) {
+    _classCallCheck(this, Slider);
 
-  for (var i = 0; i < buttons.length; i += 1) {
-    buttons[i].addEventListener('click', function(e) {
-      e.preventDefault();
-    });
+    this.slideIndex = 3;
+    var sliderId = slider.dataset.slider;
+    var sliderItems = document.querySelector("[data-slider-items=".concat(sliderId, "]"));
+    var sliderIndicators = document.querySelector("[data-slider-indicators=".concat(sliderId, "]"));
+    this.conf = {
+      sl: slider,
+      slId: sliderId,
+      slIts: sliderItems,
+      slSlds: sliderItems.querySelectorAll('[data-slider-slide]'),
+      slInds: sliderIndicators,
+      slTo: sliderIndicators.querySelectorAll('[data-slide-to]')
+    };
+    this.setListeners();
+    this.toggleSlide(this.slideIndex);
   }
-}
+
+  _createClass(Slider, [{
+    key: "setListeners",
+    value: function setListeners() {
+      var _this6 = this;
+
+      var slTo = this.conf.slTo;
+
+      var _loop3 = function _loop3(i) {
+        slTo[i].addEventListener('click', function() {
+          _this6.slideIndex = parseInt(slTo[i].dataset.slideTo, 10);
+
+          _this6.toggleSlide(_this6.slideIndex);
+        });
+      };
+
+      for (var i = 0; i < slTo.length; i += 1) {
+        _loop3(i);
+      }
+    }
+  }, {
+    key: "toggleSlide",
+    value: function toggleSlide(n) {
+      var _this$conf = this.conf,
+        slSlds = _this$conf.slSlds,
+        slTo = _this$conf.slTo;
+      if (n > slSlds.length) this.slideIndex = 0;
+      if (n < 0) this.slideIndex = slSlds.length;
+
+      for (var i = 0; i < slSlds.length; i += 1) {
+        slSlds[i].classList.remove('show');
+      }
+
+      for (var _i = 0; _i < slTo.length; _i += 1) {
+        slTo[_i].classList.remove('active');
+      }
+
+      slSlds[this.slideIndex].classList.add('show');
+      slTo[this.slideIndex].classList.add('active');
+    }
+  }]);
+
+  return Slider;
+}();
 
 window.onload = function() {
   var navbarObj;
   var selectObg;
   var tooltipObj;
+  var sliderCleaningObj;
   var navbar = document.querySelector('.navbar');
   var selects = document.querySelectorAll('[data-select]');
+  var sliderCleaning = document.querySelector('[data-slider="slider-cleaning"]');
   var tooltipTargets = document.querySelectorAll('[data-tooltip-content]');
   if (navbar) navbarObj = new Navbar(navbar);
   if (selects) selectObg = new Selects(selects);
+  if (sliderCleaning) sliderCleaningObj = new Slider(sliderCleaning);
   if (tooltipTargets) tooltipObj = new Tooltips(tooltipTargets, 'tooltip', 'body');
   disableSubmitAction();
   return {
     navbarObj: navbarObj,
     selectObg: selectObg,
+    sliderCleaningObj: sliderCleaningObj,
     tooltipObj: tooltipObj
   };
 };

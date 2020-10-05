@@ -2,6 +2,14 @@
 // http://192.168.0.11:3000/
 // /*eslint-disable */
 
+// -- Disable submit form action -- //
+function disableSubmitAction() {
+  const buttons = document.querySelectorAll('*[type=submit]');
+  for (let i = 0; i < buttons.length; i += 1) {
+    buttons[i].addEventListener('click', (e) => { e.preventDefault(); });
+  }
+}
+
 // -- Navbar -- //
 class Navbar {
   constructor(navbar) {
@@ -208,11 +216,8 @@ class Tooltips {
   setListeners() {
     window.addEventListener('resize', () => {
       for (let i = 0; i < this.tooltipsArr.length; i += 1) {
-        const { tg, ttpStatus, ttpPr } = this.tooltipsArr[i];
-
-        this.tooltipsArr[i].tgCoords = Tooltips.getCoords(tg);
-        this.tooltipsArr[i].prCoords = Tooltips.getCoords(ttpPr);
-
+        const { ttpStatus } = this.tooltipsArr[i];
+        this.updateBaseCoords(i);
         if (ttpStatus === 'show') this.setTooltipCoords(i);
       }
     });
@@ -231,6 +236,12 @@ class Tooltips {
     }
   }
 
+  updateBaseCoords(index) {
+    const { tg, ttpPr } = this.tooltipsArr[index];
+    this.tooltipsArr[index].tgCoords = Tooltips.getCoords(tg);
+    this.tooltipsArr[index].prCoords = Tooltips.getCoords(ttpPr);
+  }
+
   createTooltip(index) {
     const { ttpClass, ttpContent, ttpPosition } = this.tooltipsArr[index];
 
@@ -243,6 +254,8 @@ class Tooltips {
   }
 
   setTooltipCoords(index) {
+    this.updateBaseCoords(index);
+
     const {
       tgCoords,
       ttp,
@@ -292,10 +305,54 @@ class Tooltips {
   }
 }
 
-function disableSubmitAction() {
-  const buttons = document.querySelectorAll('*[type=submit]');
-  for (let i = 0; i < buttons.length; i += 1) {
-    buttons[i].addEventListener('click', (e) => { e.preventDefault(); });
+class Slider {
+  constructor(slider) {
+    this.slideIndex = 3;
+
+    const sliderId = slider.dataset.slider;
+    const sliderItems = document.querySelector(`[data-slider-items=${sliderId}]`);
+    const sliderIndicators = document.querySelector(`[data-slider-indicators=${sliderId}]`);
+
+    this.conf = {
+      sl: slider,
+      slId: sliderId,
+      slIts: sliderItems,
+      slSlds: sliderItems.querySelectorAll('[data-slider-slide]'),
+      slInds: sliderIndicators,
+      slTo: sliderIndicators.querySelectorAll('[data-slide-to]'),
+    };
+
+    this.setListeners();
+    this.toggleSlide(this.slideIndex);
+  }
+
+  setListeners() {
+    const { slTo } = this.conf;
+
+    for (let i = 0; i < slTo.length; i += 1) {
+      slTo[i].addEventListener('click', () => {
+        this.slideIndex = parseInt(slTo[i].dataset.slideTo, 10);
+        this.toggleSlide(this.slideIndex);
+      });
+    }
+  }
+
+  toggleSlide(n) {
+    const { slSlds, slTo } = this.conf;
+
+    if (n > slSlds.length) this.slideIndex = 0;
+    if (n < 0) this.slideIndex = slSlds.length;
+
+    for (let i = 0; i < slSlds.length; i += 1) {
+      slSlds[i].classList.remove('show');
+    }
+
+    for (let i = 0; i < slTo.length; i += 1) {
+      slTo[i].classList.remove('active');
+    }
+
+    slSlds[this.slideIndex].classList.add('show');
+    slTo[this.slideIndex].classList.add('active');
   }
 }
 
@@ -303,16 +360,24 @@ window.onload = () => {
   let navbarObj;
   let selectObg;
   let tooltipObj;
+  let sliderCleaningObj;
 
   const navbar = document.querySelector('.navbar');
   const selects = document.querySelectorAll('[data-select]');
+  const sliderCleaning = document.querySelector('[data-slider="slider-cleaning"]');
   const tooltipTargets = document.querySelectorAll('[data-tooltip-content]');
 
   if (navbar) navbarObj = new Navbar(navbar);
   if (selects) selectObg = new Selects(selects);
+  if (sliderCleaning) sliderCleaningObj = new Slider(sliderCleaning);
   if (tooltipTargets) tooltipObj = new Tooltips(tooltipTargets, 'tooltip', 'body');
 
   disableSubmitAction();
 
-  return { navbarObj, selectObg, tooltipObj };
+  return {
+    navbarObj,
+    selectObg,
+    sliderCleaningObj,
+    tooltipObj,
+  };
 };

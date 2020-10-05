@@ -1,6 +1,4 @@
 // Slider-cleaning
-#slider-cleaning
-
 .slider-cleaning
   @include flex($ds: flex, $dr: column, $b: 977px)
 
@@ -41,3 +39,33 @@
 
 .slider-cleaning__items
   padding-top: 34px
+
+.slider-cleaning__slide
+  display: none
+
+  &.show
+    display: block
+    animation: showSlide .5s ease-in
+
+@keyframes showSlide
+  from
+    opacity: .4
+  to
+    opacity: 1
+
+.slider-cleaning__footer
+  @include flex($ds: flex, $dr: row, $j: space-around, $w: wrap)
+  padding-top: 16px
+
+.slider-cleaning__footer-item
+  @include flex($ds: flex, $dr: row, $a: center, $j: center, $w: nowrap)
+  padding-left: 0
+  @include media-min($break_min_lg)
+    padding-left: 12px
+
+.slider-cleaning__footer-text
+  font-family: 'Roboto', sans-serif
+  font-size: 1.6rem
+  font-weight: $fw_light
+  line-height: 1.2
+  padding-left: 13px

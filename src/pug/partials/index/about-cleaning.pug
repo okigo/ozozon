@@ -8,7 +8,7 @@ section.about-cleaning
 
   .about-cleaning__slider
 
-    #slider-cleaning.slider-cleaning(data-slider)
+    .slider-cleaning(data-slider="slider-cleaning")
 
       .slider-cleaning__header В каждый тариф входит уборка:
 
@@ -17,12 +17,20 @@ section.about-cleaning
           each item, index in sliderCleaning
             li.slider-cleaning__indicator(data-slide-to = index) #{item.name}
 
-      ul.slider-cleaning__items(data-slider-items)
+      ul.slider-cleaning__items(data-slider-items="slider-cleaning")
 
         each item, index in sliderCleaning
-          li(data-slider-slide)
+          li.slider-cleaning__slide(data-slider-slide)
             figure.image-map
               +image(false, item.img, item.name, 'image-map__img')
 
               each mapItem, index in item.map
                 i(class="image-map__marker image-map__marker_" + mapItem.type style = mapItem.style data-tooltip-content = mapItem.tpCont data-tooltip-position = mapItem.tpPos)
+
+      .slider-cleaning__footer
+        .slider-cleaning__footer-item.image-map
+          i.image-map__marker.image-map__marker_primary.image-map__marker_disable
+          p.slider-cleaning__footer-text Поддерживающая уборка
+        .slider-cleaning__footer-item.image-map
+          i.image-map__marker.image-map__marker_secondary.image-map__marker_disable
+          p.slider-cleaning__footer-text Генеральная уборка
