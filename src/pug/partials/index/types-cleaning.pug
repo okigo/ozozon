@@ -1,0 +1,34 @@
+section.types-cleaning
+  .container.types-cleaning__container
+    .row.row_margin-xsm.types-cleaning__row
+
+      h2.title.title__secondary Типы уборки
+
+      .types-cleaning__cards
+
+        each item, index in cardsCleaning
+          article.card-cleaning
+
+            header.card-cleaning__header
+              i(class="image-map image-map__marker image-map__marker_" + item.titleIcon + " image-map__marker_disable")
+              h3.title.title__tertiary #{item.title}
+
+            .card-cleaning__content
+              if item.primaryList
+                ul.card-cleaning__list
+                  each itemPrimaryList in item.primaryList
+                    li.card-cleaning__item.card-cleaning__item_primary #{itemPrimaryList}
+              if item.preheader
+                p.card-cleaning__list-preheader #{item.preheader}
+
+              if item.secondaryList
+                ul.card-cleaning__list
+                  each itemSecondaryList in item.secondaryList
+                    li.card-cleaning__item.card-cleaning__item_secondary #{itemSecondaryList}
+
+            footer.card-cleaning__footer
+              .card-cleaning__price-wrap
+                .card-cleaning__price-promo Стоимость уборки:<br><span>во всех комнатах</span>
+                .card-cleaning__price #{item.price}
+              .card-cleaning__button
+                button.button.button__primary Оформить заявку

@@ -1,9 +1,9 @@
 /*
  * Index page
  */
+/* about-cleaning */
 .about-cleaning
   padding-top: 52px
-  height: 1000px
 
 .about-cleaning__container
 
@@ -21,3 +21,21 @@
     @include flex($ds: flex, $dr: row, $j: center, $b: 100%)
     width: 100%
     padding: 16px 15px 0 15px
+
+/* types-cleaning */
+.types-cleaning
+  padding-top: 74px
+  height: 1000px
+
+.types-cleaning__container
+
+.types-cleaning__row
+  @include flex($dr: column, $a: center, $b: 100%)
+
+.types-cleaning__cards
+  @include flex($ds: flex, $dr: column, $a: center, $j: space-between, $b: 100%)
+  width: 100%
+  padding-top: 40px
+  @include media-min($break_min_xl)
+    @include flex($ds: flex, $dr: row, $a: stretch, $j: space-between, $b: 100%)
+    width: 100%

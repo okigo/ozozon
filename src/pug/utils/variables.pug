@@ -91,3 +91,42 @@
       ]
     }
   ]
+
+//- Cards-cleaning
+-
+  var cardsCleaningPrimaryList = [
+    'Протираем мебель сверху донизу',
+    'Чистим зеркала и стеклянные поверхности',
+    'Пылесосим ковры',
+    'Моем пол',
+    'Убираем мусор',
+    'Вычищаем пыль из углов',
+    'Протираем плинтусы'
+  ]
+
+-
+  var cardsCleaningSecondaryList = [
+    'Мойка радиатора отопления',
+    'Очистка выключателей и дверных ручек',
+    'Обеспыливание настенных светильников'
+  ]
+
+-
+  var cardsCleaning = [
+    {
+      title: 'Поддерживающая',
+      titleIcon: 'primary',
+      primaryList: cardsCleaningPrimaryList,
+      secondaryList: false,
+      preheader: false,
+      price: '1590 руб.'
+    },
+    {
+      title: 'Генеральная',
+      titleIcon: 'secondary',
+      primaryList: cardsCleaningPrimaryList,
+      secondaryList: cardsCleaningSecondaryList,
+      preheader: 'Генеральная:',
+      price: '1990 руб.'
+    }
+  ]

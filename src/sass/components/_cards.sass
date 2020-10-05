@@ -1,0 +1,94 @@
+// Card-cleaning
+.card-cleaning
+  @include flex($ds: flex, $dr: column, $j: flex-end, $b: 490px)
+  max-width: 490px
+  border-radius: 10px
+  box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.1)
+
+  &:nth-child(n + 2)
+    margin-top: 40px
+    @include media-min($break_min_xl)
+      margin-top: 0
+
+.card-cleaning__header
+  @include flex($ds: flex, $dr: row, $j: center, $a: center)
+  padding-top: 37px
+
+  & > *:first-child
+    margin-left: 0
+    @include media-min($break_min_xl)
+      margin-left: -28px
+
+  & > *:last-child
+    padding-left: 10px
+
+.card-cleaning__content
+  height: 100%
+  padding: 28px 25px 42px 25px
+  @include media-min($break_min_sm)
+    padding: 28px 52px 42px 52px
+
+.card-cleaning__list
+
+.card-cleaning__item
+  @include flex($ds: flex, $dr: row, $a: center)
+  font-family: 'Roboto', sans-serif
+  font-size: 1.6rem
+  font-weight: $fw_light
+  line-height: 1.7
+  color: $secondary_text_clr
+
+  &:before
+    content: ''
+    display: block
+    flex-shrink: 0
+
+  &_primary
+    &:before
+      @include sprite($ico-check)
+      margin-right: 20px
+
+  &_secondary
+    &:before
+      content: '+'
+      color: $primary_accent_clr
+      margin: 0 30px 0 -10px
+
+.card-cleaning__list-preheader
+  font-weight: $fw_bold
+  line-height: 1.8
+  padding-left: 30px
+  padding-top: 26px
+
+.card-cleaning__footer
+  line-height: 1.2
+  border-top: 2px solid $tertiary_border_clr
+  padding: 40px 0 35px 0
+
+.card-cleaning__price-wrap
+  @include flex($ds: flex, $dr: column, $j: center, $a: center)
+  @include media-min($break_min_sm)
+    @include flex($ds: flex, $dr: row, $j: center, $a: center)
+
+.card-cleaning__price-promo
+  text-align: center
+  font-size: 1.6rem
+  font-weight: $fw_light
+  padding: 5px
+  @include media-min($break_min_sm)
+    padding: 0 10px 0 10px
+    text-align: left
+
+  & > span
+    color: $tertiary_text_clr
+
+.card-cleaning__price
+  font-size: 3.8rem
+  font-weight: $fw_regular
+  padding: 5px
+  @include media-min($break_min_sm)
+    padding: 0 10px 0 10px
+
+.card-cleaning__button
+  @include flex($ds: flex, $dr: row, $j: center, $a: center)
+  padding-top: 15px
