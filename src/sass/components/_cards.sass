@@ -1,9 +1,9 @@
-// Card-cleaning
+/* card-cleaning */
 .card-cleaning
   @include flex($ds: flex, $dr: column, $j: flex-end, $b: 490px)
   max-width: 490px
   border-radius: 10px
-  box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.1)
+  box-shadow: 0px 0px 15px 1px rgba($secondary_clr, .1)
 
   &:nth-child(n + 2)
     margin-top: 40px
@@ -79,7 +79,8 @@
     padding: 0 10px 0 10px
     text-align: left
 
-  & > span
+  & > *
+    display: inline
     color: $tertiary_text_clr
 
 .card-cleaning__price
@@ -92,3 +93,59 @@
 .card-cleaning__button
   @include flex($ds: flex, $dr: row, $j: center, $a: center)
   padding-top: 15px
+
+/* card-counter */
+.card-counter
+  @include flex($ds: flex, $dr: row, $b: 100%, $w: wrap)
+  max-width: 490px
+  padding: 0 60px
+  border-radius: 10px
+  box-shadow: 0px 0px 15px 1px rgba($secondary_clr, .1)
+  @include media_min($break_min_xl)
+    min-width: 100%
+
+.card-counter__promo
+  font-size: 2.4rem
+  font-weight: $fw_regular
+  line-height: 1.2
+  text-align: center
+  min-width: 100%
+  padding: 55px 0 0 0
+  @include media_min($break_min_xl)
+    padding: 68px 0 55px 0
+    text-align: left
+    min-width: 256px
+
+  & > *
+    display: block
+    font-size: 1.8rem
+    font-weight: $fw_light
+    color: $tertiary_text_clr
+    padding-top: 10px
+
+.card-counter__counters
+  @include flex($ds: flex, $dr: row, $b: 100%, $g: 1, $w: wrap)
+  padding-bottom: 55px
+  @include media_min($break_min_xl)
+    @include flex($ds: flex, $dr: row, $b: auto, $g: 1, $w: wrap)
+    padding-bottom: 0
+
+.card-counter__col
+  padding: 55px 0 0 0
+  @include media_min($break_min_xl)
+    padding: 68px 0 55px 0
+
+.card-counter__data
+  font-size: 4.8rem
+  font-weight: $fw_regular
+  line-height: 1
+  text-align: center
+  color: $primary_accent_clr
+
+.card-counter__caption
+  font-size: 1.7rem
+  font-weight: $fw_light
+  line-height: 1
+  text-align: center
+  color: $primary_text_clr
+  padding-top: 10px

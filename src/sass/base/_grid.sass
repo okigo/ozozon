@@ -37,3 +37,15 @@
 .container-del
   @include media_min($break_min_DEL)
     max-width: 540px
+
+.col-sm-3
+  width: 100%
+  @include media_min($break_min_sm)
+    flex: 0 0 25%
+    max-width: 25%
+
+.col-xl-4
+  width: 100%
+  @include media_min($break_min_xl)
+    flex: 0 0 33.333333%
+    max-width: 33.333333%

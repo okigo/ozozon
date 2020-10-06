@@ -18,6 +18,7 @@ section.types-cleaning
                 ul.card-cleaning__list
                   each itemPrimaryList in item.primaryList
                     li.card-cleaning__item.card-cleaning__item_primary #{itemPrimaryList}
+
               if item.preheader
                 p.card-cleaning__list-preheader #{item.preheader}
 
@@ -32,3 +33,14 @@ section.types-cleaning
                 .card-cleaning__price #{item.price}
               .card-cleaning__button
                 button.button.button__primary Оформить заявку
+
+    .row.row_margin-xsm.types-cleaning__row
+
+      .card-counter
+        .card-counter__promo Счетчик OZOZON
+            time(datetime="2017-07-23") 23 июля 2017
+        .card-counter__counters
+          each item in cardCounter
+            .col-xl-4.card-counter__col
+              .card-counter__data #{item.data}
+              .card-counter__caption #{item.caption}

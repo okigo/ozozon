@@ -8,29 +8,31 @@
 .about-cleaning__container
 
 .about-cleaning__row
-    @include flex($j: center, $b: 100%)
-    text-align: center
+  @include flex($j: center, $b: 100%)
+  text-align: center
 
 .about-cleaning__text
-    font-size: 1.8rem
-    font-weight: $fw_light
-    line-height: 1.2
-    padding-top: 29px
+  font-size: 1.8rem
+  font-weight: $fw_light
+  line-height: 1.2
+  padding-top: 29px
 
 .about-cleaning__slider
-    @include flex($ds: flex, $dr: row, $j: center, $b: 100%)
-    width: 100%
-    padding: 16px 15px 0 15px
+  @include flex($ds: flex, $dr: row, $j: center, $b: 100%)
+  width: 100%
+  padding: 16px 15px 0 15px
 
 /* types-cleaning */
 .types-cleaning
-  padding-top: 74px
-  height: 1000px
+  padding: 74px 0 72px 0
 
 .types-cleaning__container
 
 .types-cleaning__row
   @include flex($dr: column, $a: center, $b: 100%)
+
+  &:nth-child(n + 2)
+    padding-top: 48px
 
 .types-cleaning__cards
   @include flex($ds: flex, $dr: column, $a: center, $j: space-between, $b: 100%)
