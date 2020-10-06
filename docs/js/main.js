@@ -46,6 +46,7 @@ var Navbar = /*#__PURE__*/ function() {
     this.body = document.querySelector('body');
     this.setConfig();
     this.setListeners();
+    this.setSticky();
   }
 
   _createClass(Navbar, [{
@@ -63,6 +64,9 @@ var Navbar = /*#__PURE__*/ function() {
       window.addEventListener('resize', function() {
         _this.setResizeProperties();
       });
+      window.addEventListener('scroll', function() {
+        _this.setSticky();
+      });
       this.buttonNav.addEventListener('click', function() {
         _this.toggleNavState();
       });
@@ -72,6 +76,15 @@ var Navbar = /*#__PURE__*/ function() {
     value: function setResizeProperties() {
       if (this.isVisibleNav) return;
       this.scrollWidth = window.innerWidth - document.documentElement.clientWidth;
+    }
+  }, {
+    key: "setSticky",
+    value: function setSticky() {
+      if (window.pageYOffset > 0) {
+        this.navbar.classList.add('sticky-in');
+      } else {
+        this.navbar.classList.remove('sticky-in');
+      }
     }
   }, {
     key: "toggleNavState",
@@ -241,7 +254,8 @@ var Selects = /*#__PURE__*/ function() {
   }]);
 
   return Selects;
-}();
+}(); // -- Tooltips -- //
+
 
 var Tooltips = /*#__PURE__*/ function() {
   function Tooltips(tooltipTargets, tooltipClass, tooltipParent) {
@@ -390,7 +404,8 @@ var Tooltips = /*#__PURE__*/ function() {
   }]);
 
   return Tooltips;
-}();
+}(); // -- Slider -- //
+
 
 var Slider = /*#__PURE__*/ function() {
   function Slider(slider) {

@@ -19,6 +19,7 @@ class Navbar {
 
     this.setConfig();
     this.setListeners();
+    this.setSticky();
   }
 
   setConfig() {
@@ -30,6 +31,8 @@ class Navbar {
   setListeners() {
     window.addEventListener('resize', () => { this.setResizeProperties(); });
 
+    window.addEventListener('scroll', () => { this.setSticky(); });
+
     this.buttonNav.addEventListener('click', () => { this.toggleNavState(); });
   }
 
@@ -37,6 +40,14 @@ class Navbar {
     if (this.isVisibleNav) return;
 
     this.scrollWidth = window.innerWidth - document.documentElement.clientWidth;
+  }
+
+  setSticky() {
+    if (window.pageYOffset > 0) {
+      this.navbar.classList.add('sticky-in');
+    } else {
+      this.navbar.classList.remove('sticky-in');
+    }
   }
 
   toggleNavState() {
@@ -178,6 +189,7 @@ class Selects {
   }
 }
 
+// -- Tooltips -- //
 class Tooltips {
   constructor(tooltipTargets, tooltipClass, tooltipParent) {
     this.tooltipsArr = [];
@@ -305,6 +317,7 @@ class Tooltips {
   }
 }
 
+// -- Slider -- //
 class Slider {
   constructor(slider) {
     this.slideIndex = 3;

@@ -149,3 +149,23 @@
   text-align: center
   color: $primary_text_clr
   padding-top: 10px
+
+/* card-image */
+.card-image
+  @include flex($ds: flex, $dr: column, $a: center, $b: 100%)
+  @include media_min($break_min_sm)
+    @include flex($ds: flex, $dr: column, $a: center, $b: 50%)
+  @include media_min($break_min_lg)
+    @include flex($ds: flex, $dr: column, $a: center, $b: auto)
+
+.card-image__img-wrap
+  @include flex($ds: flex, $dr: row, $a: flex-end, $b: 127px)
+
+.card-image__img
+
+.card-image__text
+  font-size: 1.6rem
+  font-weight: $fw_regular
+  line-height: 1.2
+  text-align: center
+  padding-top: 32px

@@ -24,7 +24,7 @@
 
 /* types-cleaning */
 .types-cleaning
-  padding: 74px 0 72px 0
+  padding: 74px 0 70px 0
 
 .types-cleaning__container
 
@@ -41,3 +41,28 @@
   @include media-min($break_min_xl)
     @include flex($ds: flex, $dr: row, $a: stretch, $j: space-between, $b: 100%)
     width: 100%
+
+/* about-us */
+.about-us
+  background-color: $tertiary_bg_clr
+  width: 100%
+  padding: 90px 0 98px 0
+  @include media_min($break_min_lg)
+    background: url(../img/img_006.jpg) no-repeat
+    background-position: top center
+    background-size: cover
+  @include media-min($break_min_xxl)
+    background-position: center center
+
+.about-us__container
+
+.about-us__row
+  @include flex($j: center, $b: 100%)
+  text-align: center
+
+.about-us__cards
+  @include flex($ds: flex, $dr: row, $j: space-between, $b: 100%, $w: wrap)
+  width: 100%
+
+  & > *
+    padding: 75px 0 0 0

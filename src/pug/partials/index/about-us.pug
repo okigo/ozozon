@@ -1,0 +1,14 @@
+section.about-us
+  .container.about-us__container
+    .row.row_margin-xsm.about-us__row
+
+      h2.title.title__secondary Вы обязательно останетесь довольны, ведь мы...
+
+      .about-us__cards
+        each item in cardImage
+          .card-image
+            .card-image__img-wrap
+              +image(false, item.img, item.text, 'card-image__img')
+            .card-image__text !{item.text}
+
+
