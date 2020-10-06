@@ -1,0 +1,15 @@
+section.questions
+  .container.container__secondary.questions__container
+    .row.row_margin-xsm.questions__row
+
+      h2.title.title__secondary Часто задаваемые вопросы
+
+      .questions__slider
+
+        .slider-questions(data-slider="slider-questions")
+
+          ul.slider-questions__indicators(data-slider-indicators="slider-questions")
+
+            each item, index in sliderQuestions
+              li.slider-questions__indicator(data-slide-to = index) #{item.name}
+                i(class = "slider-questions__ico slider-questions__ico_" + (index + 1))

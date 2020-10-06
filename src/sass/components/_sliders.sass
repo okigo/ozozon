@@ -1,4 +1,4 @@
-// Slider-cleaning
+/* slider-cleaning */
 .slider-cleaning
   @include flex($ds: flex, $dr: column, $b: 977px)
   overflow: hidden
@@ -70,3 +70,65 @@
   font-weight: $fw_light
   line-height: 1.2
   padding-left: 10px
+
+/* slider-questions */
+.slider-questions
+  width: 100%
+
+.slider-questions__indicators
+  @include flex($ds: flex, $dr: column, $a: center, $j: center)
+  padding-top: 25px
+  @include media-min($break_min_sm)
+    @include flex($ds: flex, $dr: row, $a: stretch, $j: space-around)
+    padding-top: 50px
+  @include media-min($break_min_xl)
+    @include flex($ds: flex, $dr: row, $j: space-between)
+
+.slider-questions__indicator
+  @include flex($ds: flex, $dr: row, $a: center, $j: center, $b: auto)
+  font-family: 'Roboto', sans-serif
+  font-size: 1.8rem
+  font-weight: $fw_regular
+  line-height: 1.2
+  white-space: nowrap
+  user-select: none
+  cursor: pointer
+  transition: all .2s ease-in-out
+  padding: 0 0 25px 0
+  @include media-min($break_min_sm)
+    padding: 25px 35px
+  @include media-min($break_min_md)
+    @include flex($ds: flex, $dr: row, $a: center, $j: center, $b: 200px)
+    border-radius: 10px
+    box-shadow: 0px 5px 15px 0px rgba($secondary_clr, 0.1)
+    background-color: $primary_bg_clr
+  @include media-min($break_min_xl)
+    @include flex($ds: flex, $dr: row, $a: center, $j: space-between, $b: 334px)
+    padding: 14px 20px 16px 55px
+
+
+  &:hover,
+  &.active
+    color: $primary_accent_clr
+
+  @include media-min($break_min_md)
+    &:active,
+    &.active
+      box-shadow: 0px 2px 8px 0px rgba($secondary_clr, 0.1)
+
+  &:focus
+    outline: 0
+
+.slider-questions__ico
+  display: none
+  @include media-min($break_min_xl)
+    display: block
+
+  &_1
+    @include sprite($ico_faq_1)
+
+  &_2
+    @include sprite($ico_faq_2)
+
+  &_3
+    @include sprite($ico_faq_3)
