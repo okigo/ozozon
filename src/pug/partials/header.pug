@@ -39,7 +39,7 @@ header.header
 
             each item, index in itemsHeaderSelect
               .main-form__group
-                label.main-form__label(for = item.targetId) #{item.name}
+                .main-form__label #{item.name}
                 input(type="hidden" id = item.targetId name = item.targetId)
                 +select(item.targetId, item.itemsArray, item.activeItem)
 
