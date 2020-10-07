@@ -22,18 +22,18 @@
     padding: 0 4.45rem
 
     &_white
-      color: $primary_clr
-      border: 2px solid $primary_clr
+      color: $primary_textLight_clr
+      border: 2px solid $primary_bg_clr
 
       &:hover
         color: $quaternary_text_clr
-        box-shadow: 0 0 0 .2em rgba($primary_clr, .5)
-        background-color: rgba($primary_clr, .9)
+        background-color: rgba($primary_bg_clr, .9)
+        box-shadow: 0 0 0 .2em rgba($primary_bg_clr, .5)
 
       &:active
         color: $quaternary_text_clr
-        background-color: rgba($primary_clr, .9)
-        box-shadow: 0 0 0 .2em rgba($primary_clr, .3)
+        background-color: rgba($primary_bg_clr, .9)
+        box-shadow: 0 0 0 .2em rgba($primary_bg_clr, .3)
 
   &__primary
     font-weight: $fw_light
@@ -47,6 +47,19 @@
 
     &:active
       box-shadow: 0 0 0 .2em rgba($secondary_accent_clr, .3)
+
+  &__secondary
+    font-weight: $fw_light
+    line-height: 3.1
+    color: $primary_text_clr
+    background-color: $primary_bg_clr
+    padding: 0 6.5rem
+
+    &:hover
+      box-shadow: 0 0 0 .2em rgba($primary_bg_clr, .5)
+
+    &:active
+      box-shadow: 0 0 0 .2em rgba($primary_bg_clr, .3)
 
 // Button-navbar
 .button-nav
@@ -76,6 +89,9 @@
   height: 70px
   border-radius: 50%
   background-color: $primary_accent_clr
+  white-space: nowrap
+  user-select: none
+  cursor: pointer
   border: 1px solid transparent
   transition: all .2s ease-in-out
 

@@ -1,0 +1,21 @@
+section.reviews
+
+  .reviews__header
+    h2.title.title__secondary Отзывы
+
+  .reviews__content
+
+    .reviews__slider
+
+      .slider-reviews(data-slider="slider-reviews")
+
+        ul.slider-reviews__items(data-slider-items="slider-reviews")
+
+          li.slider-reviews__slide(data-slider-slide)
+            +image(false, 'img_012', 'item.name', 'slider-reviews__img')
+
+        .slider-reviews__control.slider-reviews__control_prev(data-slider-prev="slider-reviews")
+        .slider-reviews__control.slider-reviews__control_next(data-slider-next="slider-reviews")
+
+    .reviews__button
+      button.button.button__secondary Все отзывы

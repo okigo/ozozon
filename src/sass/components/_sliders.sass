@@ -181,3 +181,67 @@
   user-select: none
   cursor: pointer
   padding-top: 9px
+
+/* slider-reviews */
+.slider-reviews
+  position: relative
+  @include flex($ds: flex, $dr: column)
+  box-shadow: 0px 5px 15px 0px rgba($secondary_clr, 0.1)
+
+.slider-reviews__items
+  @include flex($ds: flex, $dr: row, $j: flex-start, $w: nowrap)
+  background-color: $primary_bg_clr
+  border-radius: 10px
+  z-index: 100
+
+.slider-reviews__slide
+  padding: 31px 59px 27px 54px
+
+.slider-reviews__img
+
+.slider-reviews__control
+  position: absolute
+  @include flex($ds: flex, $dr: row, $a: center, $j: center)
+  text-align: center
+  width: 35px
+  height: 35px
+  border-radius: 50%
+  white-space: nowrap
+  user-select: none
+  cursor: pointer
+  background-color: $secondary_bgDark_clr
+  border: 1px solid transparent
+  transition: all .2s ease-in-out
+  z-index: 200
+  @include media-min($break_min_sm)
+    width: 56px
+    height: 56px
+
+  &:focus
+    outline: 0
+
+  &:hover
+    box-shadow: 0 0 0 .2em rgba($secondary_bgDark_clr, .7)
+
+  &:active
+    box-shadow: 0 0 0 .2em rgba($secondary_bgDark_clr, .5)
+
+  &:before
+    content: ''
+    display: block
+    @include sprite($ico_arrow-down)
+
+  &_prev
+    top: 42%
+    left: 8px
+    transform: rotate(90deg)
+    @include media-min($break_min_sm)
+      top: 42%
+      left: -24px
+
+  &_next
+    top: 42%
+    right: 8px
+    transform: rotate(-90deg)
+    @include media-min($break_min_sm)
+      right: -26px
