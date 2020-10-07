@@ -319,8 +319,8 @@ class Tooltips {
 
 // -- Slider -- //
 class Slider {
-  constructor(slider) {
-    this.slideIndex = 3;
+  constructor(slider, activeItem) {
+    this.slideIndex = activeItem;
 
     const sliderId = slider.dataset.slider;
     const sliderItems = document.querySelector(`[data-slider-items=${sliderId}]`);
@@ -391,23 +391,27 @@ window.onload = () => {
   let selectObg;
   let tooltipObj;
   let sliderCleaningObj;
+  let sliderQuestionsObj;
 
   const navbar = document.querySelector('.navbar');
   const selects = document.querySelectorAll('[data-select]');
-  const sliderCleaning = document.querySelector('[data-slider="slider-cleaning"]');
   const tooltipTargets = document.querySelectorAll('[data-tooltip-content]');
+  const sliderCleaning = document.querySelector('[data-slider="slider-cleaning"]');
+  const sliderQuestions = document.querySelector('[data-slider="slider-questions"]');
 
   if (navbar) navbarObj = new Navbar(navbar);
   if (selects) selectObg = new Selects(selects);
-  if (sliderCleaning) sliderCleaningObj = new Slider(sliderCleaning);
   if (tooltipTargets) tooltipObj = new Tooltips(tooltipTargets, 'tooltip', 'body');
+  if (sliderCleaning) sliderCleaningObj = new Slider(sliderCleaning, 3);
+  if (sliderQuestions) sliderQuestionsObj = new Slider(sliderQuestions, 1);
 
   disableSubmitAction();
 
   return {
     navbarObj,
     selectObg,
-    sliderCleaningObj,
     tooltipObj,
+    sliderCleaningObj,
+    sliderQuestionsObj,
   };
 };

@@ -408,10 +408,10 @@ var Tooltips = /*#__PURE__*/ function() {
 
 
 var Slider = /*#__PURE__*/ function() {
-  function Slider(slider) {
+  function Slider(slider, activeItem) {
     _classCallCheck(this, Slider);
 
-    this.slideIndex = 3;
+    this.slideIndex = activeItem;
     var sliderId = slider.dataset.slider;
     var sliderItems = document.querySelector("[data-slider-items=".concat(sliderId, "]"));
     var sliderIndicators = document.querySelector("[data-slider-indicators=".concat(sliderId, "]"));
@@ -491,19 +491,23 @@ window.onload = function() {
   var selectObg;
   var tooltipObj;
   var sliderCleaningObj;
+  var sliderQuestionsObj;
   var navbar = document.querySelector('.navbar');
   var selects = document.querySelectorAll('[data-select]');
-  var sliderCleaning = document.querySelector('[data-slider="slider-cleaning"]');
   var tooltipTargets = document.querySelectorAll('[data-tooltip-content]');
+  var sliderCleaning = document.querySelector('[data-slider="slider-cleaning"]');
+  var sliderQuestions = document.querySelector('[data-slider="slider-questions"]');
   if (navbar) navbarObj = new Navbar(navbar);
   if (selects) selectObg = new Selects(selects);
-  if (sliderCleaning) sliderCleaningObj = new Slider(sliderCleaning);
   if (tooltipTargets) tooltipObj = new Tooltips(tooltipTargets, 'tooltip', 'body');
+  if (sliderCleaning) sliderCleaningObj = new Slider(sliderCleaning, 3);
+  if (sliderQuestions) sliderQuestionsObj = new Slider(sliderQuestions, 1);
   disableSubmitAction();
   return {
     navbarObj: navbarObj,
     selectObg: selectObg,
+    tooltipObj: tooltipObj,
     sliderCleaningObj: sliderCleaningObj,
-    tooltipObj: tooltipObj
+    sliderQuestionsObj: sliderQuestionsObj
   };
 };

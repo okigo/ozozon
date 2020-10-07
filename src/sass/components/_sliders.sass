@@ -79,10 +79,8 @@
   @include flex($ds: flex, $dr: column, $a: center, $j: center)
   padding-top: 25px
   @include media-min($break_min_sm)
-    @include flex($ds: flex, $dr: row, $a: stretch, $j: space-around)
+    @include flex($ds: flex, $dr: row, $a: stretch, $j: space-between)
     padding-top: 50px
-  @include media-min($break_min_xl)
-    @include flex($ds: flex, $dr: row, $j: space-between)
 
 .slider-questions__indicator
   @include flex($ds: flex, $dr: row, $a: center, $j: center, $b: auto)
@@ -94,18 +92,21 @@
   user-select: none
   cursor: pointer
   transition: all .2s ease-in-out
-  padding: 0 0 25px 0
+  padding: 0
+  margin-bottom: 25px
   @include media-min($break_min_sm)
+    margin-bottom: 0
     padding: 25px 35px
   @include media-min($break_min_md)
-    @include flex($ds: flex, $dr: row, $a: center, $j: center, $b: 200px)
+    @include flex($j: center, $b: 200px)
     border-radius: 10px
     box-shadow: 0px 5px 15px 0px rgba($secondary_clr, 0.1)
     background-color: $primary_bg_clr
+  @include media-min($break_min_lg)
+    @include flex($b: 250px)
   @include media-min($break_min_xl)
-    @include flex($ds: flex, $dr: row, $a: center, $j: space-between, $b: 334px)
+    @include flex($j: space-between, $b: 334px)
     padding: 14px 20px 16px 55px
-
 
   &:hover,
   &.active
@@ -114,7 +115,7 @@
   @include media-min($break_min_md)
     &:active,
     &.active
-      box-shadow: 0px 2px 8px 0px rgba($secondary_clr, 0.1)
+      box-shadow: 0px 2px 4px 0px rgba($secondary_clr, 0.2)
 
   &:focus
     outline: 0
@@ -132,3 +133,51 @@
 
   &_3
     @include sprite($ico_faq_3)
+
+.slider-questions__items
+  @include flex($ds: flex, $dr: row, $w: nowrap)
+
+.slider-questions__slide
+  visibility: hidden
+  @include flex($ds: flex, $a: center, $s: 0, $b: 100%)
+  box-shadow: 0px 5px 15px 0px rgba($secondary_clr, 0.1)
+  border-radius: 10px
+  margin-top: 42px
+  padding-top: 22px
+  padding-bottom: 32px
+  transition: transform .2s ease-in-out, opacity .2s ease-in-out
+  opacity: 0
+  transform: rotateY(45deg) rotateZ(-5deg) translateX(-15px)
+
+  &.show
+    visibility: visible
+    opacity: 1
+    transform:  rotateY(0deg) rotateZ(0deg) translateX(0px)
+
+.slider-questions__faq-wrap
+  width: 100%
+  padding: 0 15px
+  @include media-min($break_min_xl)
+    padding: 0 80px 0 116px
+
+.slider-questions__faq
+  text-align: center
+  list-style-type: decimal
+  list-style-position: inside
+  @include media-min($break_min_xl)
+    text-align: left
+    column-width: 400px
+    column-count: 2
+
+.slider-questions__faq-q
+  font-family: 'Roboto', sans-serif
+  font-size: 1.6rem
+  font-weight: $fw_light
+  line-height: 1.5
+  color: $primary_text_clr
+  text-decoration: underline
+  text-decoration-style: dashed
+  text-underline-position: under
+  user-select: none
+  cursor: pointer
+  padding-top: 9px

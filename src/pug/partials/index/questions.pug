@@ -13,3 +13,14 @@ section.questions
             each item, index in sliderQuestions
               li.slider-questions__indicator(data-slide-to = index) #{item.name}
                 i(class = "slider-questions__ico slider-questions__ico_" + (index + 1))
+
+          ul.slider-questions__items(data-slider-items="slider-questions")
+
+            each item in sliderQuestions
+              li.slider-questions__slide(data-slider-slide)
+
+                .slider-questions__faq-wrap
+                  ol.slider-questions__faq(type="1")
+
+                    each question in item.list
+                      li.slider-questions__faq-q #{question}
