@@ -185,17 +185,30 @@
 /* slider-reviews */
 .slider-reviews
   position: relative
-  @include flex($ds: flex, $dr: column)
+  display: block
   box-shadow: 0px 5px 15px 0px rgba($secondary_clr, 0.1)
+  max-width: 903px
+  margin-left: auto
+  margin-right: auto
 
 .slider-reviews__items
   @include flex($ds: flex, $dr: row, $j: flex-start, $w: nowrap)
-  background-color: $primary_bg_clr
-  border-radius: 10px
   z-index: 100
 
 .slider-reviews__slide
+  visibility: hidden
+  background-color: $primary_bg_clr
+  border-radius: 10px
+  min-width: 100%
   padding: 31px 59px 27px 54px
+  opacity: 0
+  transform: rotateX(45deg) rotateY(45deg) rotateZ(-5deg) translateX(-15px)
+  transition: transform .2s ease-in-out, opacity .2s ease-in-out
+
+  &.show
+    visibility: visible
+    opacity: 1
+    transform:  rotateX(0deg) rotateY(0deg) rotateZ(0deg) translateX(0px)
 
 .slider-reviews__img
 

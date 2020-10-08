@@ -305,9 +305,11 @@ class Tooltips {
   }
 
   showTooltip(index) {
-    this.setTooltipCoords(index);
-    this.tooltipsArr[index].ttp.classList.add('active');
-    this.tooltipsArr[index].ttpStatus = 'show';
+    requestAnimationFrame(() => {
+      this.setTooltipCoords(index);
+      this.tooltipsArr[index].ttp.classList.add('active');
+      this.tooltipsArr[index].ttpStatus = 'show';
+    });
   }
 
   destroyTooltip(index) {
@@ -324,15 +326,26 @@ class Slider {
 
     const sliderId = slider.dataset.slider;
     const sliderItems = document.querySelector(`[data-slider-items=${sliderId}]`);
-    const sliderIndicators = document.querySelector(`[data-slider-indicators=${sliderId}]`);
+    const sliderPrev = document.querySelector(`[data-slider-prev=${sliderId}]`) || false;
+    const sliderNext = document.querySelector(`[data-slider-next=${sliderId}]`) || false;
+    const sliderIndicators = document.querySelector(`[data-slider-indicators=${sliderId}]`) || false;
+    let slideTo;
+
+    if (sliderIndicators) {
+      slideTo = sliderIndicators.querySelectorAll('[data-slide-to]');
+    } else {
+      slideTo = false;
+    }
 
     this.conf = {
       sl: slider,
       slId: sliderId,
       slIts: sliderItems,
       slSlds: sliderItems.querySelectorAll('[data-slider-slide]'),
+      slPrev: sliderPrev,
+      slNext: sliderNext,
       slInds: sliderIndicators,
-      slTo: sliderIndicators.querySelectorAll('[data-slide-to]'),
+      slTo: slideTo,
     };
 
     this.slideOffset = this.conf.slSlds[0].offsetWidth;
@@ -342,13 +355,33 @@ class Slider {
   }
 
   setListeners() {
-    const { slTo } = this.conf;
+    const { slPrev, slNext, slTo } = this.conf;
 
-    for (let i = 0; i < slTo.length; i += 1) {
-      slTo[i].addEventListener('click', () => {
-        this.slideIndex = parseInt(slTo[i].dataset.slideTo, 10);
-        this.toggleSlide(this.slideIndex);
+    if (slPrev) {
+      slPrev.addEventListener('click', () => {
+        requestAnimationFrame(() => {
+          this.toggleSlide(this.slideIndex -= 1);
+        });
       });
+    }
+
+    if (slNext) {
+      slNext.addEventListener('click', () => {
+        requestAnimationFrame(() => {
+          this.toggleSlide(this.slideIndex += 1);
+        });
+      });
+    }
+
+    if (slTo) {
+      for (let i = 0; i < slTo.length; i += 1) {
+        slTo[i].addEventListener('click', () => {
+          requestAnimationFrame(() => {
+            this.slideIndex = parseInt(slTo[i].dataset.slideTo, 10);
+            this.toggleSlide(this.slideIndex);
+          });
+        });
+      }
     }
 
     window.addEventListener('resize', () => {
@@ -360,21 +393,23 @@ class Slider {
   toggleSlide(n) {
     const { slSlds, slTo } = this.conf;
 
-    if (n > slSlds.length) this.slideIndex = 0;
-    if (n < 0) this.slideIndex = slSlds.length;
+    if (n >= slSlds.length) this.slideIndex = 0;
+    if (n < 0) this.slideIndex = slSlds.length - 1;
 
     for (let i = 0; i < slSlds.length; i += 1) {
       slSlds[i].classList.remove('show');
     }
 
-    for (let i = 0; i < slTo.length; i += 1) {
-      slTo[i].classList.remove('active');
+    if (slTo) {
+      for (let i = 0; i < slTo.length; i += 1) {
+        slTo[i].classList.remove('active');
+      }
     }
 
     this.shiftItemsWrapper();
 
     slSlds[this.slideIndex].classList.add('show');
-    slTo[this.slideIndex].classList.add('active');
+    if (slTo) slTo[this.slideIndex].classList.add('active');
   }
 
   shiftItemsWrapper() {
@@ -392,18 +427,21 @@ window.onload = () => {
   let tooltipObj;
   let sliderCleaningObj;
   let sliderQuestionsObj;
+  let sliderReviewsObj;
 
   const navbar = document.querySelector('.navbar');
   const selects = document.querySelectorAll('[data-select]');
   const tooltipTargets = document.querySelectorAll('[data-tooltip-content]');
   const sliderCleaning = document.querySelector('[data-slider="slider-cleaning"]');
   const sliderQuestions = document.querySelector('[data-slider="slider-questions"]');
+  const sliderReviews = document.querySelector('[data-slider="slider-reviews"]');
 
   if (navbar) navbarObj = new Navbar(navbar);
   if (selects) selectObg = new Selects(selects);
   if (tooltipTargets) tooltipObj = new Tooltips(tooltipTargets, 'tooltip', 'body');
   if (sliderCleaning) sliderCleaningObj = new Slider(sliderCleaning, 3);
   if (sliderQuestions) sliderQuestionsObj = new Slider(sliderQuestions, 1);
+  if (sliderReviews) sliderReviewsObj = new Slider(sliderReviews, 0);
 
   disableSubmitAction();
 
@@ -413,5 +451,6 @@ window.onload = () => {
     tooltipObj,
     sliderCleaningObj,
     sliderQuestionsObj,
+    sliderReviewsObj,
   };
 };

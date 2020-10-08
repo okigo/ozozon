@@ -379,9 +379,15 @@ var Tooltips = /*#__PURE__*/ function() {
   }, {
     key: "showTooltip",
     value: function showTooltip(index) {
-      this.setTooltipCoords(index);
-      this.tooltipsArr[index].ttp.classList.add('active');
-      this.tooltipsArr[index].ttpStatus = 'show';
+      var _this6 = this;
+
+      requestAnimationFrame(function() {
+        _this6.setTooltipCoords(index);
+
+        _this6.tooltipsArr[index].ttp.classList.add('active');
+
+        _this6.tooltipsArr[index].ttpStatus = 'show';
+      });
     }
   }, {
     key: "destroyTooltip",
@@ -414,14 +420,26 @@ var Slider = /*#__PURE__*/ function() {
     this.slideIndex = activeItem;
     var sliderId = slider.dataset.slider;
     var sliderItems = document.querySelector("[data-slider-items=".concat(sliderId, "]"));
-    var sliderIndicators = document.querySelector("[data-slider-indicators=".concat(sliderId, "]"));
+    var sliderPrev = document.querySelector("[data-slider-prev=".concat(sliderId, "]")) || false;
+    var sliderNext = document.querySelector("[data-slider-next=".concat(sliderId, "]")) || false;
+    var sliderIndicators = document.querySelector("[data-slider-indicators=".concat(sliderId, "]")) || false;
+    var slideTo;
+
+    if (sliderIndicators) {
+      slideTo = sliderIndicators.querySelectorAll('[data-slide-to]');
+    } else {
+      slideTo = false;
+    }
+
     this.conf = {
       sl: slider,
       slId: sliderId,
       slIts: sliderItems,
       slSlds: sliderItems.querySelectorAll('[data-slider-slide]'),
+      slPrev: sliderPrev,
+      slNext: sliderNext,
       slInds: sliderIndicators,
-      slTo: sliderIndicators.querySelectorAll('[data-slide-to]')
+      slTo: slideTo
     };
     this.slideOffset = this.conf.slSlds[0].offsetWidth;
     this.setListeners();
@@ -431,48 +449,73 @@ var Slider = /*#__PURE__*/ function() {
   _createClass(Slider, [{
     key: "setListeners",
     value: function setListeners() {
-      var _this6 = this;
+      var _this7 = this;
 
-      var slTo = this.conf.slTo;
+      var _this$conf = this.conf,
+        slPrev = _this$conf.slPrev,
+        slNext = _this$conf.slNext,
+        slTo = _this$conf.slTo;
 
-      var _loop3 = function _loop3(i) {
-        slTo[i].addEventListener('click', function() {
-          _this6.slideIndex = parseInt(slTo[i].dataset.slideTo, 10);
-
-          _this6.toggleSlide(_this6.slideIndex);
+      if (slPrev) {
+        slPrev.addEventListener('click', function() {
+          requestAnimationFrame(function() {
+            _this7.toggleSlide(_this7.slideIndex -= 1);
+          });
         });
-      };
+      }
 
-      for (var i = 0; i < slTo.length; i += 1) {
-        _loop3(i);
+      if (slNext) {
+        slNext.addEventListener('click', function() {
+          requestAnimationFrame(function() {
+            _this7.toggleSlide(_this7.slideIndex += 1);
+          });
+        });
+      }
+
+      if (slTo) {
+        var _loop3 = function _loop3(i) {
+          slTo[i].addEventListener('click', function() {
+            requestAnimationFrame(function() {
+              _this7.slideIndex = parseInt(slTo[i].dataset.slideTo, 10);
+
+              _this7.toggleSlide(_this7.slideIndex);
+            });
+          });
+        };
+
+        for (var i = 0; i < slTo.length; i += 1) {
+          _loop3(i);
+        }
       }
 
       window.addEventListener('resize', function() {
-        _this6.slideOffset = _this6.conf.slSlds[0].offsetWidth;
+        _this7.slideOffset = _this7.conf.slSlds[0].offsetWidth;
 
-        _this6.shiftItemsWrapper();
+        _this7.shiftItemsWrapper();
       });
     }
   }, {
     key: "toggleSlide",
     value: function toggleSlide(n) {
-      var _this$conf = this.conf,
-        slSlds = _this$conf.slSlds,
-        slTo = _this$conf.slTo;
-      if (n > slSlds.length) this.slideIndex = 0;
-      if (n < 0) this.slideIndex = slSlds.length;
+      var _this$conf2 = this.conf,
+        slSlds = _this$conf2.slSlds,
+        slTo = _this$conf2.slTo;
+      if (n >= slSlds.length) this.slideIndex = 0;
+      if (n < 0) this.slideIndex = slSlds.length - 1;
 
       for (var i = 0; i < slSlds.length; i += 1) {
         slSlds[i].classList.remove('show');
       }
 
-      for (var _i = 0; _i < slTo.length; _i += 1) {
-        slTo[_i].classList.remove('active');
+      if (slTo) {
+        for (var _i = 0; _i < slTo.length; _i += 1) {
+          slTo[_i].classList.remove('active');
+        }
       }
 
       this.shiftItemsWrapper();
       slSlds[this.slideIndex].classList.add('show');
-      slTo[this.slideIndex].classList.add('active');
+      if (slTo) slTo[this.slideIndex].classList.add('active');
     }
   }, {
     key: "shiftItemsWrapper",
@@ -492,22 +535,26 @@ window.onload = function() {
   var tooltipObj;
   var sliderCleaningObj;
   var sliderQuestionsObj;
+  var sliderReviewsObj;
   var navbar = document.querySelector('.navbar');
   var selects = document.querySelectorAll('[data-select]');
   var tooltipTargets = document.querySelectorAll('[data-tooltip-content]');
   var sliderCleaning = document.querySelector('[data-slider="slider-cleaning"]');
   var sliderQuestions = document.querySelector('[data-slider="slider-questions"]');
+  var sliderReviews = document.querySelector('[data-slider="slider-reviews"]');
   if (navbar) navbarObj = new Navbar(navbar);
   if (selects) selectObg = new Selects(selects);
   if (tooltipTargets) tooltipObj = new Tooltips(tooltipTargets, 'tooltip', 'body');
   if (sliderCleaning) sliderCleaningObj = new Slider(sliderCleaning, 3);
   if (sliderQuestions) sliderQuestionsObj = new Slider(sliderQuestions, 1);
+  if (sliderReviews) sliderReviewsObj = new Slider(sliderReviews, 0);
   disableSubmitAction();
   return {
     navbarObj: navbarObj,
     selectObg: selectObg,
     tooltipObj: tooltipObj,
     sliderCleaningObj: sliderCleaningObj,
-    sliderQuestionsObj: sliderQuestionsObj
+    sliderQuestionsObj: sliderQuestionsObj,
+    sliderReviewsObj: sliderReviewsObj
   };
 };

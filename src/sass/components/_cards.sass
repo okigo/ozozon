@@ -1,9 +1,10 @@
 /* card-cleaning */
 .card-cleaning
-  @include flex($ds: flex, $dr: column, $j: flex-end, $b: 490px)
+  @include flex($ds: flex, $dr: column, $b: 490px)
   max-width: 490px
   border-radius: 10px
   box-shadow: 0px 0px 15px 1px rgba($secondary_clr, .1)
+  background-color: $primary_bg_clr
 
   &:nth-child(n + 2)
     margin-top: 40px
@@ -101,6 +102,7 @@
   padding: 0 60px
   border-radius: 10px
   box-shadow: 0px 0px 15px 1px rgba($secondary_clr, .1)
+  background-color: $primary_bg_clr
   @include media_min($break_min_xl)
     min-width: 100%
 
