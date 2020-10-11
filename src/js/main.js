@@ -106,8 +106,6 @@ class Selects {
 
     for (let i = 0; i < selects.length; i += 1) {
       const button = selects[i].querySelector('.select__button');
-      const { selectTarget } = button.dataset;
-      const target = document.getElementById(selectTarget);
 
       this.selectsArr.push({
         index: i,
@@ -115,8 +113,8 @@ class Selects {
         zIndexBase: (100 + selects.length) - i,
         button,
         buttonText: selects[i].querySelector('.select__button-text'),
-        selectTarget,
-        target,
+        selectTarget: button.dataset.selectTarget,
+        target: document.getElementById(button.dataset.selectTarget),
         items: selects[i].querySelectorAll('.select__item'),
       });
     }
@@ -200,15 +198,17 @@ class Tooltips {
 
       this.tooltipsArr.push({
         tg: tooltipTargets[i],
-        tgCoords: Tooltips.getCoords(tooltipTargets[i]),
+        tgCoords: null,
         ttp: null,
-        ttpStatus: 'hide',
+        ttpCoords: null,
         ttpClass: tooltipClass,
         ttpContent: tooltipTargets[i].dataset.tooltipContent,
         ttpPosition: tooltipTargets[i].dataset.tooltipPosition,
         ttpPr: parent,
-        prCoords: Tooltips.getCoords(parent),
+        prCoords: null,
       });
+
+      this.getBaseCoords(i);
     }
 
     this.setListeners();
@@ -228,30 +228,50 @@ class Tooltips {
   setListeners() {
     window.addEventListener('resize', () => {
       for (let i = 0; i < this.tooltipsArr.length; i += 1) {
-        const { ttpStatus } = this.tooltipsArr[i];
-        this.updateBaseCoords(i);
-        if (ttpStatus === 'show') this.setTooltipCoords(i);
+        const { ttp } = this.tooltipsArr[i];
+
+        if (ttp !== null) {
+          this.getBaseCoords(i);
+          this.calculateTooltipCoords(i);
+          this.compensateTooltipCoords(i);
+          this.setTooltipCoords(i);
+        }
       }
     });
 
     for (let i = 0; i < this.tooltipsArr.length; i += 1) {
       this.tooltipsArr[i].tg.addEventListener('mouseover', () => {
-        this.createTooltip(i);
-        this.setTooltipCoords(i);
         this.showTooltip(i);
       });
 
       this.tooltipsArr[i].tg.addEventListener('mouseout', () => {
         this.destroyTooltip(i);
-        this.tooltipsArr[i].ttpStatus = 'hide';
       });
     }
   }
 
-  updateBaseCoords(index) {
+  getBaseCoords(index) {
     const { tg, ttpPr } = this.tooltipsArr[index];
-    this.tooltipsArr[index].tgCoords = Tooltips.getCoords(tg);
-    this.tooltipsArr[index].prCoords = Tooltips.getCoords(ttpPr);
+
+    const targetBaseCoords = Tooltips.getCoords(tg);
+    const parentBaseCoords = Tooltips.getCoords(ttpPr);
+
+    const targetCompensateCoords = {
+      top: targetBaseCoords.top,
+      right: targetBaseCoords.right + this.indent,
+      bottom: targetBaseCoords.bottom,
+      left: targetBaseCoords.left - this.indent,
+    };
+
+    const parentCompensateCoords = {
+      top: Math.max(window.pageYOffset, parentBaseCoords.top),
+      right: Math.min(document.documentElement.clientWidth, parentBaseCoords.right),
+      bottom: Math.min(window.pageYOffset + document.documentElement.clientHeight, parentBaseCoords.bottom),
+      left: Math.max(0, parentBaseCoords.left),
+    };
+
+    this.tooltipsArr[index].tgCoords = targetCompensateCoords;
+    this.tooltipsArr[index].prCoords = parentCompensateCoords;
   }
 
   createTooltip(index) {
@@ -265,50 +285,76 @@ class Tooltips {
     this.tooltipsArr[index].ttp = ttp;
   }
 
-  setTooltipCoords(index) {
-    this.updateBaseCoords(index);
-
+  calculateTooltipCoords(index) {
     const {
       tgCoords,
       ttp,
       ttpPosition,
-      prCoords,
     } = this.tooltipsArr[index];
 
-    let tooltipLeftCoord;
-    const tooltipTopCoord = tgCoords.top;
+    let ttpCoords = {};
 
     if (ttpPosition === 'right') {
-      const tooltipRight = tgCoords.right + ttp.offsetWidth + this.indent;
-      const right = Math.min(tooltipRight, prCoords.right, document.documentElement.clientWidth);
-
-      if (tgCoords.right + this.indent > right - ttp.offsetWidth) {
-        tooltipLeftCoord = Math.max(tgCoords.left - ttp.offsetWidth - this.indent, prCoords.left);
-      } else {
-        tooltipLeftCoord = right - ttp.offsetWidth;
-      }
+      ttpCoords = {
+        top: tgCoords.top,
+        right: tgCoords.right + ttp.offsetWidth,
+        bottom: tgCoords.top + ttp.offsetHeight,
+        left: tgCoords.right,
+      };
     }
 
     if (ttpPosition === 'left') {
-      const tooltipLeft = tgCoords.left - ttp.offsetWidth - this.indent;
-      const left = Math.max(tooltipLeft, prCoords.left, 0);
-
-      if (tgCoords.left < left + ttp.offsetWidth) {
-        tooltipLeftCoord = tgCoords.right;
-      } else {
-        tooltipLeftCoord = left;
-      }
+      ttpCoords = {
+        top: tgCoords.top,
+        right: tgCoords.left,
+        bottom: tgCoords.top + ttp.offsetHeight,
+        left: tgCoords.left - ttp.offsetWidth,
+      };
     }
 
-    ttp.style.left = `${Math.round(tooltipLeftCoord)}px`;
-    ttp.style.top = `${Math.round(tooltipTopCoord)}px`;
+    this.tooltipsArr[index].ttpCoords = ttpCoords;
+  }
+
+  compensateTooltipCoords(index) {
+    const {
+      tgCoords,
+      ttp,
+      ttpCoords,
+      prCoords,
+    } = this.tooltipsArr[index];
+
+    if (ttpCoords.top < prCoords.top) {
+      ttpCoords.top = prCoords.top;
+    }
+
+    if (ttpCoords.bottom > prCoords.bottom) {
+      ttpCoords.top = Math.max(prCoords.bottom - ttp.offsetHeight, prCoords.top);
+    }
+
+    if (ttpCoords.left < prCoords.left) {
+      ttpCoords.left = prCoords.left;
+    }
+
+    if (ttpCoords.right > prCoords.right) {
+      ttpCoords.left = Math.max(tgCoords.left - ttp.offsetWidth, prCoords.left);
+    }
+  }
+
+  setTooltipCoords(index) {
+    const { ttp, ttpCoords } = this.tooltipsArr[index];
+
+    ttp.style.left = `${Math.round(ttpCoords.left)}px`;
+    ttp.style.top = `${Math.round(ttpCoords.top)}px`;
   }
 
   showTooltip(index) {
     requestAnimationFrame(() => {
+      this.getBaseCoords(index);
+      this.createTooltip(index);
+      this.calculateTooltipCoords(index);
+      this.compensateTooltipCoords(index);
       this.setTooltipCoords(index);
       this.tooltipsArr[index].ttp.classList.add('active');
-      this.tooltipsArr[index].ttpStatus = 'show';
     });
   }
 
@@ -438,7 +484,7 @@ window.onload = () => {
 
   if (navbar) navbarObj = new Navbar(navbar);
   if (selects) selectObg = new Selects(selects);
-  if (tooltipTargets) tooltipObj = new Tooltips(tooltipTargets, 'tooltip', 'body');
+  if (tooltipTargets) tooltipObj = new Tooltips(tooltipTargets, 'tooltip', '.image-map');
   if (sliderCleaning) sliderCleaningObj = new Slider(sliderCleaning, 3);
   if (sliderQuestions) sliderQuestionsObj = new Slider(sliderQuestions, 1);
   if (sliderReviews) sliderReviewsObj = new Slider(sliderReviews, 0);
